@@ -29,7 +29,7 @@ namespace json {
     typedef boost::variant< 
         boost::recursive_wrapper<object>, 
         boost::recursive_wrapper<array>, 
-        std::string, double, int, bool > value;
+        std::string, double, bool > value;
 
     struct keyval : std::pair< std::string, value > {};
     struct object : std::map< std::string, value> {};
@@ -49,18 +49,16 @@ namespace json {
         
         json_grammar() : json_grammar::base_type(start) {
             
-            using qi::lit;
             using qi::lexeme;
             using qi::double_;
-            using qi::int_;
             using qi::bool_;
             using ascii::char_;
             
             quoted_string = lexeme['"' >> +(char_ - '"') >> '"'];
-            object_rule   = lit('{') >> pair_rule % ',' >> '}';
+            object_rule   = '{' >> pair_rule % ',' >> '}';
             pair_rule     = quoted_string >> ':' >> value_rule;
-            array_rule    = lit('[') >> value_rule % ',' >> ']';
-            value_rule    = object_rule | array_rule | quoted_string | double_ | int_ | bool_ ;
+            array_rule    = '[' >> value_rule % ',' >> ']';
+            value_rule    = object_rule | array_rule | quoted_string | double_ | bool_ ;
             start         = value_rule;
         }
     

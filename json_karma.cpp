@@ -2,12 +2,17 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <map>
+#include <utility>
+
+#include <boost/mpl/print.hpp>
 
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/karma.hpp>
 
-#include <boost/fusion/include/map.hpp>
-#include <boost/fusion/include/adapt_struct.hpp>
+#include <boost/fusion/include/std_pair.hpp> 
+#include <boost/fusion/include/adapt_struct.hpp> 
+#include <boost/fusion/container/map.hpp> 
 #include <boost/variant/recursive_variant.hpp>
 
 namespace karma = boost::spirit::karma;
@@ -19,18 +24,31 @@ namespace phoenix = boost::phoenix;
 
 namespace json {
 
-
     struct keyval;
     struct object;
     struct array;
-        
-    typedef boost::variant< boost::recursive_wrapper<object>, boost::recursive_wrapper<array>, std::string, double, int, bool > value;
-    
-    struct keyval : boost::fusion::map< std::string, value >{};
-    struct object : std::vector<keyval>{};
+
+    typedef boost::variant< 
+        boost::recursive_wrapper<object>, 
+        boost::recursive_wrapper<array>, 
+        std::string, double, int, bool > value;
+
+    struct keyval : std::pair< std::string, value > {};
+    struct object : std::map< std::string, value> {};
     struct array : std::vector<value>{};
+    
+    typedef std::pair< std::string, value > TDkeyval;
+    
+}
 
+BOOST_FUSION_ADAPT_STRUCT(
+    json::keyval,
+    (std::string, first)
+    (json::value, second)
+);
 
+namespace json {
+    
     template< typename Iter > 
     struct json_grammar : qi::grammar< Iter, value(), ascii::space_type > {
         
@@ -60,24 +78,19 @@ namespace json {
         
     };
     
-    
     template <typename Iter>
     struct json_gen_grammar : karma::grammar< Iter, value() > {
-        json_gen_grammar() : json_gen_grammar::base_type(start)
-        {
-            using karma::eol;
+        json_gen_grammar() : json_gen_grammar::base_type(start) {
             
             using karma::double_;
-            using karma::int_;
             using karma::bool_;
-            
             using ascii::char_;
             
-            value_rule    = object_rule | array_rule | quoted_string | double_ | int_ | bool_ ;
+            value_rule    = object_rule | array_rule | quoted_string | double_ | bool_ ;
             quoted_string = '"' << +char_ << '"';
             pair_rule     = quoted_string << " : " << value_rule;
-            object_rule   = '{' << pair_rule % ",\n" << '}';
-            array_rule    = "[\n" << value_rule % ',' << "\n]";
+            object_rule   = "{\n" << pair_rule % ",\n" << "\n}";
+            array_rule    = "[\n" << value_rule % ",\n" << "\n]";
             start         = value_rule;
         }
 
@@ -85,9 +98,8 @@ namespace json {
         karma::rule< Iter, std::string() > quoted_string;
         karma::rule< Iter, value()       > value_rule;
         karma::rule< Iter, object()      > object_rule;
-        karma::rule< Iter, keyval()      > pair_rule;
+        karma::rule< Iter, TDkeyval()    > pair_rule;
         karma::rule< Iter, array()       > array_rule;
-
     };
     
 }
@@ -118,9 +130,6 @@ int main(int argc, char **argv) {
     copy(istream_iterator<char>(file),
          istream_iterator<char>(),
          back_inserter(text));
-    
-
-
     json::json_grammar< string::const_iterator > parse_grammar;
     json::value json_tree;
 
@@ -138,12 +147,12 @@ int main(int argc, char **argv) {
     cout << "Parse Succeeded!\n";
     cout << "-------------------------\n";
     
+    
+    
     string json_generated;
     back_insert_iterator<string> sink(json_generated);
     
     json::json_gen_grammar< back_insert_iterator<string> > json_grammar;
-      
-
     r = karma::generate(sink, json_grammar, json_tree);
 
     if (!r) {
