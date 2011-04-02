@@ -108,6 +108,12 @@ int main(int argc, char **argv) {
     
     using namespace std;
     
+    cout << endl << "Using Boost version: "
+         << (BOOST_VERSION / 100000) << "."
+         << (BOOST_VERSION / 100 % 1000) << "."
+         << (BOOST_VERSION % 100) << endl << endl;
+    
+    
     char const* filename;
     if (argc > 1) {
         filename = argv[1];
@@ -145,7 +151,7 @@ int main(int argc, char **argv) {
     }
     cout << "-------------------------\n";
     cout << "Parse Succeeded!\n";
-    cout << "-------------------------\n";
+    cout << "-------------------------\n\n";
     
     
     
