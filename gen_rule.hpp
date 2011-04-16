@@ -1,4 +1,7 @@
-namespace cssgen {
+
+
+
+/*namespace cssgen {
 
     struct rule_data {
         
@@ -42,4 +45,4 @@ BOOST_FUSION_ADAPT_STRUCT(
     (boost::optional<bool>, else_filter_)
     //(mapnik::symbolizers, syms_)
     //(mapnik::expression_ptr, filter_)
-);
+);*/

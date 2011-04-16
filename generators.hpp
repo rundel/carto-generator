@@ -5,6 +5,7 @@
 #include <boost/fusion/container/map.hpp>
 #include <boost/fusion/include/adapt_adt.hpp>
 #include <boost/fusion/include/adapt_struct.hpp> 
+#include <boost/fusion/include/adapt_struct_named.hpp>
 
 #include <boost/spirit/include/karma.hpp>
 #include <boost/spirit/include/support_adapt_adt_attributes.hpp>
@@ -16,4 +17,5 @@
 #include "gen_parameter.hpp"
 #include "gen_layer.hpp"
 #include "gen_map.hpp"
+//#include "gen_map_mss.hpp"
 

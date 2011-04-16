@@ -1,18 +1,30 @@
 
 namespace cssgen {
 
-    typedef std::map<std::string,std::vector<rule_data> > style_map;
-    typedef std::pair<std::string,std::vector<rule_data> > style_pair;
+    typedef std::map<std::string,mapnik::rules > style_map;
+    typedef std::pair<std::string,mapnik::rules > style_pair;
 
 }
 
 BOOST_FUSION_ADAPT_STRUCT(
     cssgen::style_pair,
     (std::string, first)
-    (std::vector<cssgen::rule_data>, second)
+    (mapnik::rules, second)
 );
 
-/*namespace cssgen {
+BOOST_FUSION_ADAPT_ADT(
+    mapnik::rule,
+    (std::string, std::string, obj.get_name(), obj.set_name(val))
+    (std::string, std::string, obj.get_title(), obj.set_title(val))
+    (std::string, std::string, obj.get_abstract(), obj.set_abstract(val))
+    (double, double, obj.get_min_scale()  , obj.set_min_scale(val))
+    (double, double, obj.get_max_scale()  , obj.set_max_scale(val))
+    (bool,   bool,   obj.has_else_filter(), obj.set_else(val))
+    //(mapnik::symbolizers, syms_)
+    //(mapnik::expression_ptr, filter_)
+);
+
+namespace cssgen {
 
     namespace karma = boost::spirit::karma;
     
@@ -24,21 +36,21 @@ BOOST_FUSION_ADAPT_STRUCT(
             using karma::double_;
             using karma::bool_;
             
-            style_rule  =    -("name: " <<  string)
+            rule  =    -("name: " <<  string)
                           << -("title: " << string)
                           << -("abstract: " << string)
                           << -("min_scale: " << double_)
                           << -("max_scale: " << double_)
                           << -("else_filter: " << bool_);
                           
-            style_rules = style_rule % ", ";
-            style       = string << style_rules;
-            styles      = style % ",\n                    ";
+            rules  = rule % ", ";
+            style  = string << rules;
+            styles = style % ",\n                    ";
         }
 
         karma::rule< Iter, style_map() >  styles;
         karma::rule< Iter, style_pair() > style;
-        karma::rule< Iter, std::vector<rule_data>() > style_rules;
-        karme::rule< Iter, rule_data() > style_rule;
+        karma::rule< Iter, mapnik::rules() > rules;
+        karma::rule< Iter, mapnik::rule() > rule;
     };
-}*/
+}

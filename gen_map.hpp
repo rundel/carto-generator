@@ -31,21 +31,15 @@ struct map_data {
             
             BOOST_FOREACH(mapnik::layer const& lyr, rhs.layers()) {
 
-                layer_data tmp(lyr);
+                layer_data ld(lyr);
                 
                 std::map<std::string, mapnik::feature_type_style> fts_map = rhs.styles();
                    
                 BOOST_FOREACH(std::string const& style_name, lyr.styles()) {
-                    
-                    tmp.styles_[style_name] = std::vector<rule_data>(); 
-                    
-                    BOOST_FOREACH(mapnik::rule r, fts_map[style_name].get_rules() ) {
-                        tmp.styles_[style_name].push_back(rule_data(r));
-                    }
-
+                    ld.styles_[style_name] = fts_map[style_name].get_rules();
                 }
                     
-                layers_.push_back(tmp);
+                layers_.push_back(ld);
 
             }
             
@@ -75,15 +69,7 @@ BOOST_FUSION_ADAPT_STRUCT(
     (std::vector<cssgen::layer_data>, layers_)
 );
 
-/*BOOST_FUSION_ADAPT_ADT(
-    mapnik::Map,
-    (std::string const&, std::string const&, obj.srs(), obj.set_srs(val) )
-    (unsigned, unsigned, obj.width(),  obj.set_width(val) )
-    (unsigned, unsigned, obj.height(), obj.set_height(val) )
-    (boost::optional<std::string> const&, boost::optional<std::string> const&, obj.background_image(), obj.set_background_image(val) )
-    //(boost::optional<mapnik::color> const&, mapnik::color const&, obj.background(), obj.set_background(val) )
-    //(mapnik::parameters, mapnik::parameters, obj.get_extra_attributes(), obj.set_extra_attributes(val))
-) ;*/
+
 
 
 namespace cssgen {
@@ -93,6 +79,7 @@ namespace cssgen {
     using karma::lit;
     using karma::omit;
     using karma::int_;
+    using karma::attr_cast;
     
     template <typename Iter>
     struct mml_gen : karma::grammar< Iter, map_data() > {
@@ -116,7 +103,7 @@ namespace cssgen {
         quoted_string< Iter > qstring;
         color_hex< Iter > bg_hex;
         
-        layer_css_gen< Iter > layer;
+        layer_mml_gen< Iter > layer;
         font_set_css_gen< Iter > font_sets;
     
         karma::rule< Iter, map_data() > mml;
@@ -142,33 +129,11 @@ namespace cssgen {
         quoted_string< Iter > qstring;
         color_hex< Iter > bg_hex;
         
-        layer_css_gen< Iter > layer;
+        layer_mss_gen< Iter > layer;
         font_set_css_gen< Iter > font_sets;
     
         karma::rule< Iter, map_data() > mms;
         
     };
 
-
-
-    template <typename Iter>
-    struct map_css_gen : karma::grammar< Iter, map_data() > {
-        map_css_gen() : map_css_gen::base_type(map) {
-            
-            using karma::string;
-
-            map =     ("srs               : " << string << "\n") 
-                  << -("background_image  : " << string << "\n")
-                  << -("background        : " << bg_dec)
-                  << -("Fontsets          : " << font_sets)
-                  <<  ("Layer : \n" << layer) % "\n";
-        }
-        
-        
-        karma::rule< Iter, map_data() > map;
-        color_hex< Iter > bg_hex;
-        color_rgb< Iter > bg_dec;
-        layer_css_gen< Iter > layer;
-        font_set_css_gen< Iter > font_sets;
-    };   
 }
