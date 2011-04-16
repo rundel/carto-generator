@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Map srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs" background-color="rgb(255,255,255)">
+    
+    <FontSet name="book-fonts">
+        <Font face-name="DejaVu Sans Book" />
+        <!--Font face-name="unifont Medium" /-->
+    </FontSet>
+    <FontSet name="bold-fonts">
+        <Font face-name="DejaVu Sans Bold" />
+        <!--Font face-name="unifont Medium" /-->
+    </FontSet>
+    <FontSet name="oblique-fonts">
+        <Font face-name="DejaVu Sans Oblique" />
+        <!--Font face-name="unifont Medium" /-->
+    </FontSet>
+    <FontSet name="all-fonts">
+        <Font face-name="DejaVu Sans Book" />
+        <Font face-name="DejaVu Sans Bold" />
+        <Font face-name="DejaVu Sans Oblique" />
+    </FontSet>
+    
+    <Style name="drainage">
+        <Rule>
+            <Filter>([HYC]=8)</Filter>
+            <PolygonSymbolizer fill="rgb(153,204,255)"/>
+        </Rule>
+    </Style>
+    <Style name="highway-border">
+        <Rule>
+            <Filter>([CLASS]=1)</Filter>
+            <LineSymbolizer stroke="rgb(188,149,28)" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+        </Rule>
+    </Style>
+    <Style name="highway-fill">
+        <Rule>
+            <Filter>([CLASS]=1)</Filter>
+            <LineSymbolizer stroke="rgb(242,191,36)" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+        </Rule>
+    </Style>
+    <Style name="popplaces">
+        <Rule>
+            <TextSymbolizer name="[GEONAME]" face-name="DejaVu Sans Book" size="10" fill="rgb(0,0,0)" vertical-alignment="auto" halo-radius="1" halo-fill="rgb(255,255,200)" horizontal-alignment="auto"/>
+        </Rule>
+    </Style>
+    <Style name="provinces">
+        <Rule>
+            <Filter>([NAME_EN]=&apos;Ontario&apos;)</Filter>
+            <PolygonSymbolizer fill="rgb(250,190,183)"/>
+        </Rule>
+        <Rule>
+            <Filter>([NOM_FR]=&apos;Québec&apos;)</Filter>
+            <PolygonSymbolizer fill="rgb(217,235,203)"/>
+        </Rule>
+    </Style>
+    <Style name="provlines">
+        <Rule>
+            <LineSymbolizer stroke-dasharray="8, 4, 2, 2, 2, 2"/>
+        </Rule>
+    </Style>
+    <Style name="road-border">
+        <Rule>
+            <Filter>([CLASS]=2)</Filter>
+            <LineSymbolizer stroke="rgb(171,158,137)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+        </Rule>
+    </Style>
+    <Style name="road-fill">
+        <Rule>
+            <Filter>([CLASS]=2)</Filter>
+            <LineSymbolizer stroke="rgb(255,250,115)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        </Rule>
+    </Style>
+    <Style name="smallroads">
+        <Rule>
+            <Filter>(([CLASS]=3) or ([CLASS]=4))</Filter>
+            <LineSymbolizer stroke="rgb(171,158,137)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        </Rule>
+    </Style>
+    <Layer name="Provinces" srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
+        <StyleName>provinces</StyleName>
+        <Datasource>
+            <Parameter name="file">../data/boundaries</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="Quebec Hydrography" srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
+        <StyleName>drainage</StyleName>
+        <Datasource>
+            <Parameter name="file">../data/qcdrainage</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="Ontario Hydrography" srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
+        <StyleName>drainage</StyleName>
+        <Datasource>
+            <Parameter name="file">../data/ontdrainage</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="Provincial borders" srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
+        <StyleName>provlines</StyleName>
+        <Datasource>
+            <Parameter name="file">../data/boundaries_l</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="Roads" srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
+        <StyleName>smallroads</StyleName>
+        <StyleName>road-border</StyleName>
+        <StyleName>road-fill</StyleName>
+        <StyleName>highway-border</StyleName>
+        <StyleName>highway-fill</StyleName>
+        <Datasource>
+            <Parameter name="file">../data/roads</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="Populated Places" srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
+        <StyleName>popplaces</StyleName>
+        <Datasource>
+            <Parameter name="encoding">latin1</Parameter>
+            <Parameter name="file">../data/popplaces</Parameter>
+            <Parameter name="type">shape</Parameter>
+        </Datasource>
+    </Layer>
+</Map>
