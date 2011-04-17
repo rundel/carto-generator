@@ -1,5 +1,5 @@
-#CXX = g++
-CXX = clang++
+CXX = g++
+#CXX = clang++
 
 INCLUDE = `pkg-config --cflags mapnik2 freetype2`
 LIBDIR  = `pkg-config --libs mapnik2`

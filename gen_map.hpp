@@ -44,14 +44,7 @@ struct map_data {
             }
             
             if (!rhs.fontsets().empty())  {
-                
-                fontsets_ = font_set_map();
-                
-                std::pair<std::string,mapnik::font_set> fs;
-                BOOST_FOREACH( fs, rhs.fontsets()) {
-                    
-                    (*fontsets_).insert(font_set_pair(fs.first, font_set_data(fs.second)));
-                }
+                fontsets_ = rhs.fontsets();
             }
             
 
@@ -123,7 +116,7 @@ namespace cssgen {
                   << -("buffer-size: " << int_ << ";\n")
                   << "}\n"
                   << "\n"
-                  << omit [layer % ""];
+                  << layer % "\n";
         }
         
         quoted_string< Iter > qstring;

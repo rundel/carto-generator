@@ -1,47 +1,35 @@
 
 namespace cssgen {
 
-    struct font_set_data {
-        std::string name_;
-        std::vector<std::string> face_names_;
-
-        font_set_data(mapnik::font_set const& rhs) {
-            name_ = rhs.get_name();
-            face_names_ = rhs.get_face_names();
-        }
-    };
-
-    typedef std::map<std::string,font_set_data> font_set_map;
-    typedef std::pair<std::string,font_set_data> font_set_pair;
+    typedef std::map<std::string,mapnik::font_set> font_set_map;
+    typedef std::pair<std::string,mapnik::font_set> font_set_pair;
 
 }
 
-BOOST_FUSION_ADAPT_STRUCT(
-    cssgen::font_set_data,
-    (std::string, name_)
-    (std::vector<std::string>, face_names_)
+BOOST_FUSION_ADAPT_ADT(
+    mapnik::font_set,
+    (std::string const&, std::string const&, obj.get_name(), /**/ )
+    (std::vector<std::string> const&, std::vector<std::string> const&, obj.get_face_names(), /**/)
 );
 
 BOOST_FUSION_ADAPT_STRUCT(
     cssgen::font_set_pair,
     (std::string, first)
-    (cssgen::font_set_data, second)
+    (mapnik::font_set, second)
 );
 
 namespace cssgen {
 
     namespace karma = boost::spirit::karma;
-    
+    using karma::string;
+    using karma::omit;
 
     template <typename Iter>
     struct font_set_css_gen : karma::grammar< Iter, font_set_map() > {
         font_set_css_gen() : font_set_css_gen::base_type(fs_map) {
-        
-            using karma::string;
-            using karma::omit;
             
-            fs_data = omit[string] << qstring % ", " << ";";
-            fs_pair = "@" << string << ": " << fs_data;
+            fs = omit[string] << qstring % ", " << ";";
+            fs_pair = "@" << string << ": " << fs;
             fs_map  = fs_pair % "\n" << "\n";
         }
 
@@ -49,6 +37,6 @@ namespace cssgen {
         
         karma::rule< Iter, font_set_map() > fs_map;
         karma::rule< Iter, font_set_pair() > fs_pair;
-        karma::rule< Iter, font_set_data() > fs_data;
+        karma::rule< Iter, mapnik::font_set() > fs;
     };
 }

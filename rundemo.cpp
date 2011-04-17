@@ -19,19 +19,20 @@
 #include "generators.hpp"
 
 
-int main ( int argc , char** argv)
-{    
+int main ( int argc , char** argv) {    
+    std::string mapnik_dir, xml_file;
+    
     if (argc < 2)
     {
-        std::cout << "usage: ./rundemo <mapnik_install_dir>\nUsually /usr/local/lib/mapnik\n";
-        std::cout << "Warning: ./rundemo looks for data in ../data/,\nTherefore must be run from within the demo/c++ folder.\n";
-        return EXIT_SUCCESS;
+        std::cout << "usage: ./rundemo <mapnik_install_dir> <xml_file>\nUsually /usr/local/lib/mapnik\n";
+        
+        mapnik_dir = "/usr/local/lib/mapnik2/";
+        xml_file = "map.xml";
+    } else {
+        mapnik_dir = std::string(argv[1]);
+        xml_file = (argc == 3) ? std::string(argv[2]) : "map.xml";
     }
-    
-    std::string mapnik_dir(argv[1]);
-    
-    std::string xml_file = (argc == 3) ? std::string(argv[2]) : "map.xml";
-    
+
     using namespace mapnik;
     try {
         

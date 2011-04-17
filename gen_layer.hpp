@@ -89,7 +89,7 @@ BOOST_FUSION_ADAPT_STRUCT_NAMED_NS(
     (cssgen),
     layer_style,
     (std::string, id_)
-    //(std::vector<std::string>, style_names_)
+    (cssgen::style_map, styles_)
 );
 
 
@@ -137,16 +137,15 @@ namespace cssgen {
     struct layer_mss_gen : karma::grammar< Iter, layer_style() > {
         layer_mss_gen() : layer_mss_gen::base_type(layer) {
 
-            styles = "Styles: " << qstring % ",\n" << "\n";
             
-            layer =    ("#" << qstring << " {\n")
+            layer =    ("#" << string << " {\n")
+                    << styles
                     << ("}\n");
         }
-    
+        
         quoted_string< Iter > qstring;
         
-        parameter_css_gen< Iter > datasource;
-        karma::rule< Iter, std::vector<std::string>() > styles;
+        style_css_gen< Iter> styles;
         karma::rule< Iter, layer_style() > layer;
     };
 }
