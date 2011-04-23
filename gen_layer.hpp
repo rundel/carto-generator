@@ -139,7 +139,7 @@ namespace cssgen {
 
             
             layer =    ("#" << string << " {\n")
-                    << styles
+                    << styles << "\n"
                     << ("}\n");
         }
         

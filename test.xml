@@ -14,7 +14,7 @@
    srs="+proj=latlong +ellps=WGS84 +datum=WGS84 +no_defs">
     <StyleName>world</StyleName>
     <Datasource>
-       <Parameter name="file">/Users/rundel/Desktop/Summer of Code 2011/demo/data/world_borders</Parameter>
+       <Parameter name="file">../data/world_borders</Parameter>
        <Parameter name="type">shape</Parameter>
     </Datasource>
   </Layer>

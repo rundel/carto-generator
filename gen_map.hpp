@@ -3,7 +3,7 @@ namespace cssgen {
 
 struct map_data {       
         std::string  srs_;
-        boost::optional<mapnik::css> background_;
+        boost::optional<mapnik::color> background_;
         boost::optional<std::string> background_image_;
         boost::optional<int> buffer_size_;
         
@@ -20,14 +20,11 @@ struct map_data {
         map_data(const mapnik::Map& rhs) {
             srs_ = rhs.srs();
             background_image_ = rhs.background_image();
+            background_ = rhs.background();
             
             if (rhs.buffer_size() != mapnik::Map().buffer_size())
                 buffer_size_ = rhs.buffer_size();
-            
-            if (rhs.background()) {
-                mapnik::color tmp = *(rhs.background());
-                background_ = mapnik::css(tmp.red(),tmp.green(),tmp.blue(),tmp.alpha());
-            }
+
             
             BOOST_FOREACH(mapnik::layer const& lyr, rhs.layers()) {
 
@@ -57,7 +54,7 @@ BOOST_FUSION_ADAPT_STRUCT(
     (boost::optional<cssgen::font_set_map>, fontsets_)
     (std::string, srs_ )
     (boost::optional<std::string>, background_image_ )
-    (boost::optional<mapnik::css>, background_ )
+    (boost::optional<mapnik::color>, background_ )
     (boost::optional<int>, buffer_size_ )
     (std::vector<cssgen::layer_data>, layers_)
 );

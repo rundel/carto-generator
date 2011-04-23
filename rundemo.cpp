@@ -19,20 +19,52 @@
 #include "generators.hpp"
 
 
+std::string prettify(std::string in, std::string indent = "    ") {
+    
+    std::string out;
+    out.reserve(in.size());
+    
+    char cur, prev;
+    bool in_quote = false;
+    int depth = 0;
+    
+    std::string::iterator it;
+    for(it=in.begin(); it<in.end(); ++it ) {
+        
+        cur = *it;
+        
+        if ((cur == '}' || cur == ']') && !in_quote)
+            depth--;
+        
+        if (prev == '\n' && !in_quote) {
+            int j=depth;
+            while(j-- !=0 ) {
+                out.append(indent);
+            }
+        }
+        
+        if ((cur == '{' || cur == '[') && !in_quote)
+            depth++;
+        
+        if (cur == '"' && prev != '\\')
+            in_quote = !in_quote;
+        
+        out.push_back(cur);
+        
+        prev = cur;
+    }
+    
+    return out;
+}
+
+
 int main ( int argc , char** argv) {    
     std::string mapnik_dir, xml_file;
     
-    if (argc < 2)
-    {
-        std::cout << "usage: ./rundemo <mapnik_install_dir> <xml_file>\nUsually /usr/local/lib/mapnik\n";
-        
-        mapnik_dir = "/usr/local/lib/mapnik2/";
-        xml_file = "map.xml";
-    } else {
-        mapnik_dir = std::string(argv[1]);
-        xml_file = (argc == 3) ? std::string(argv[2]) : "map.xml";
-    }
-
+    
+    xml_file = (argc > 1) ? std::string(argv[1]) : "map.xml";
+    mapnik_dir = (argc == 3) ? std::string(argv[2]) : "/usr/local/lib/mapnik2/"; 
+    
     using namespace mapnik;
     try {
         
@@ -52,7 +84,7 @@ int main ( int argc , char** argv) {
         
         Map m(800,600);
         load_map(m,xml_file,true);
-        m.set_background(color_factory::from_string("black"));
+        //m.set_background(color_factory::from_string("black"));
                 
         //m.zoom_to_box(box2d<double>(1405120.04127408,-247003.813399447,
         //                             1706357.31328276,-25098.593149577));
@@ -86,7 +118,7 @@ int main ( int argc , char** argv) {
         
         bool r = boost::spirit::karma::generate(sink, g_mml, md);
         if (r)
-            std::cout << mml << "\n";
+            std::cout << prettify(mml) << "\n";
         else
             std:: cout << "mml generator failed!\n";
         
@@ -100,12 +132,11 @@ int main ( int argc , char** argv) {
         r = boost::spirit::karma::generate(sink, g_mss, md);
         
         if (r)
-            std::cout << mss << "\n";
+            std::cout << prettify(mss) << "\n";
         else
             std:: cout << "mss generator failed!\n";
         
         std::cout << "\n-------------------------\n";
-  
 
     }
     catch ( const mapnik::config_error & ex )
