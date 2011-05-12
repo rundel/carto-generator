@@ -1,4 +1,4 @@
-#define FUSION_MAX_VECTOR_SIZE 20
+#define FUSION_MAX_VECTOR_SIZE 25
 
 #include <mapnik/map.hpp>
 #include <mapnik/datasource_cache.hpp>
@@ -80,7 +80,9 @@ int main ( int argc , char** argv) {
         freetype_engine::register_font(mapnik_dir + "fonts/DejaVuSans-Book.ttf");
         freetype_engine::register_font(mapnik_dir + "fonts/DejaVuSans-Bold.ttf");
         freetype_engine::register_font(mapnik_dir + "fonts/DejaVuSans-Oblique.ttf");
-
+        freetype_engine::register_font("/Library/Fonts/Georgia.ttf");
+        freetype_engine::register_font("/Library/Fonts/Microsoft/Arial Italic.ttf");
+        
         
         Map m(800,600);
         load_map(m,xml_file,true);

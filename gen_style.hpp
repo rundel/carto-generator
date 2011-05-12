@@ -145,7 +145,7 @@ struct style_css_gen : karma::grammar< Iter, style_map() > {
     quoted_string< Iter > qstring;
     line_sym_gen< Iter > line_sym;
     poly_sym_gen< Iter > poly_sym;
-    poly_sym_gen< Iter > text_sym;
+    text_sym_gen< Iter > text_sym;
     
 
     karma::rule< Iter, style_map() >  styles;
