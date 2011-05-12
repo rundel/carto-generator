@@ -33,10 +33,9 @@ BOOST_FUSION_ADAPT_ADT(
 
 BOOST_FUSION_ADAPT_ADT(
     mapnik::stroke,
+    (double, double, obj.get_width(), /**/)
     (boost::optional<mapnik::color>, boost::optional<mapnik::color>, \
      cssgen::make_opt<mapnik::color>(obj.get_color(),mapnik::stroke().get_color()), /**/)
-    (boost::optional<double>, boost::optional<double>, \
-     cssgen::make_opt<double>(obj.get_width(),mapnik::stroke().get_width()), /**/)
     (boost::optional<double>, boost::optional<double>, \
      cssgen::make_opt<double>(obj.get_opacity(),mapnik::stroke().get_opacity()), /**/)
     (boost::optional<int>, boost::optional<int>, \
@@ -66,8 +65,8 @@ namespace cssgen {
             
             using karma::double_;
             
-            stroke =    -("line-color: "     << color    << ";\n")
-                     << -("line-width: "     << double_  << ";\n")
+            stroke =     ("line-width: "     << double_  << ";\n")
+                     << -("line-color: "     << color    << ";\n")
                      << -("line-opacity: "   << double_  << ";\n")
                      << -("line-join: "      << linejoin << ";\n")
                      << -("line-cap: "       << linecap  << ";\n")
@@ -82,7 +81,7 @@ namespace cssgen {
         linecap_ linecap;
         linejoin_ linejoin;
         
-        color_hex< Iter > color;
+        color_rgb< Iter > color;
         
         karma::rule< Iter, dash_pair() > dashpair;
         

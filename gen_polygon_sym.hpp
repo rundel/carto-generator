@@ -2,8 +2,7 @@
 
 BOOST_FUSION_ADAPT_ADT(
     mapnik::polygon_symbolizer,
-    (boost::optional<mapnik::color>, boost::optional<mapnik::color>, \
-     cssgen::make_opt<mapnik::color>(obj.get_fill(),mapnik::polygon_symbolizer().get_fill()), /**/)
+    (mapnik::color, mapnik::color, obj.get_fill(), /**/)
     (boost::optional<double>, boost::optional<double>, \
      cssgen::make_opt<double>(obj.get_opacity(),mapnik::polygon_symbolizer().get_opacity()), /**/)
     (boost::optional<double>, boost::optional<double>, \
@@ -20,13 +19,13 @@ namespace cssgen {
         
             using karma::double_;
         
-            poly_sym =    -("polygon-fill: "     << color   << ";\n")
+            poly_sym =     ("polygon-fill: "      << color   << ";\n")
                        << -("polygon-opacity: "   << double_ << ";\n")
                        << -("polygon-gamma: "     << double_ << ";\n");
         
         }
         
-        color_hex< Iter > color;
+        color_rgb< Iter > color;
         karma::rule< Iter, mapnik::polygon_symbolizer() > poly_sym;
 
     };
