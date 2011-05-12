@@ -18,7 +18,6 @@
 #include "gen_polygon_sym.hpp"
 #include "gen_text_sym.hpp"
 
-#include "gen_rule.hpp"
 #include "gen_style.hpp"
 
 #include "gen_font_set.hpp"
