@@ -58,32 +58,25 @@ namespace cssgen {
             using karma::bool_;
             using karma::omit;
             
-            c =   "#" << hex << hex << hex << &true_ << hex
-                | "#" << hex << hex << hex << omit[bool_] << omit[hex];
+            c = "#" << ( hex << hex << hex << &true_ << hex
+                       | hex << hex << hex << omit[bool_] << omit[hex]);
         }
         karma::rule< Iter, mapnik::color() > c;
     };
 
-    /*template <typename Iter>
-    struct color_hex : karma::grammar< Iter, mapnik::css() > {
-        color_hex() : color_hex::base_type(css) {
-            using karma::hex;
-            css = "#" << hex << hex << hex << -hex;
-        }
-        karma::rule< Iter, mapnik::css() > css;
-    };
-
-
     template <typename Iter>
-    struct color_rgb : karma::grammar< Iter, mapnik::css() > {
-        color_rgb() : color_rgb::base_type(css) {
+    struct color_rgb : karma::grammar< Iter, mapnik::color() > {
+        color_rgb() : color_rgb::base_type(c) {
+            
             using karma::uint_;
-            css = "rgb(" << uint_ 
-                         << ", " << uint_ 
-                         << ", " << uint_ 
-                         << -(", " << uint_) 
-                         << ")";
+            using karma::true_;
+            using karma::bool_;
+            using karma::omit;
+            
+            c = "rgb(" << ( uint_ << ", " << uint_ << ", " << uint_ << &true_ << ", " << uint_
+                          | uint_ << ", " << uint_ << ", " << uint_ << omit[bool_] << omit[uint_] )
+                  << ")";
         }
-        karma::rule< Iter, mapnik::css() > css;
-    };*/
+        karma::rule< Iter, mapnik::color() > c;
+    };
 }

@@ -167,7 +167,7 @@ namespace cssgen {
         }
         
         quoted_string< Iter > qstring;
-        color_hex< Iter > color;
+        color_rgb< Iter > color;
         
         placement_ placement;
         vert_align_ vert_align;

@@ -79,7 +79,7 @@ namespace cssgen {
                   << "{\n"
                   << "\"srs\": " << qstring << ",\n"
                   << omit[qstring]
-                  << omit[bg_hex]
+                  << omit[bg_rgb]
                   << omit[-int_]
                   << "\"Stylesheet\": [\n"
                   << "\"style.mss\"\n"
@@ -91,7 +91,7 @@ namespace cssgen {
         }
         
         quoted_string< Iter > qstring;
-        color_hex< Iter > bg_hex;
+        color_rgb< Iter > bg_rgb;
         
         layer_mml_gen< Iter > layer;
         font_set_css_gen< Iter > font_sets;
@@ -109,7 +109,7 @@ namespace cssgen {
                   << "Map {\n"
                   << "srs: " << qstring << ";\n"
                   << -("background-image: " << qstring << ";\n")
-                  << -("background-color: " << bg_hex << ";\n")
+                  << -("background-color: " << bg_rgb << ";\n")
                   << -("buffer-size: " << int_ << ";\n")
                   << "}\n"
                   << "\n"
@@ -117,7 +117,7 @@ namespace cssgen {
         }
         
         quoted_string< Iter > qstring;
-        color_hex< Iter > bg_hex;
+        color_rgb< Iter > bg_rgb;
         
         layer_mss_gen< Iter > layer;
         font_set_css_gen< Iter > font_sets;
