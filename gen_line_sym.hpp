@@ -15,8 +15,8 @@ namespace cssgen {
             using karma::double_;
             using karma::string;
             
-            stroke =     ("line-width: "     << double_ << ";\n")
-                     << -("line-color: "     << color   << ";\n")
+            stroke =    -("line-color: "     << color   << ";\n")
+                     <<  ("line-width: "     << double_ << ";\n")
                      << -("line-opacity: "   << double_ << ";\n")
                      << -("line-join: "      << string  << ";\n")
                      << -("line-cap: "       << string  << ";\n")

@@ -83,8 +83,8 @@ namespace cssgen {
             using karma::bool_;
             using karma::string;
 
-            stroke =    -("marker-line-width: "     << double_ << ";\n")
-                     << -("marker-line-color: "     << color   << ";\n")
+            stroke =    -("marker-line-color: "     << color   << ";\n")
+                     << -("marker-line-width: "     << double_ << ";\n")
                      << -("marker-line-opacity: "   << double_ << ";\n");
                      //<< -("line-join: "      << string  << ";\n")
                      //<< -("line-cap: "       << string  << ";\n")
