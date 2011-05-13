@@ -1,7 +1,5 @@
 namespace cssgen {
 
-namespace karma = boost::spirit::karma;
-
 static const mapnik::text_symbolizer ts_dfl(mapnik::expression_ptr(), "<no default>", 0, mapnik::color(0,0,0) );
 
 }
@@ -83,16 +81,15 @@ namespace cssgen {
                        <<  ("text-fill: "                      << color      << ";\n")
                        << -("text-dx: "                        << double_    << ";\n")
                        << -("text-dy: "                        << double_    << ";\n")
-                       << -("text-placement: "                 << qstring    << ";\n")
-                       //<< -("text-vertical-alignment: "        << vert_align << ";\n")
-                       << -("text-vertical-alignment: "        << qstring    << ";\n")
+                       << -("text-placement: "                 << string     << ";\n")
+                       << -("text-vertical-alignment: "        << string     << ";\n")
                        << -("text-halo-radius: "               << double_    << ";\n")
                        << -("text-halo-fill: "                 << color      << ";\n")
                        << -("text-ratio: "                     << uint_      << ";\n")
                        << -("text-wrap-width: "                << uint_      << ";\n")
                        //<< -( wrap-before                                      ";\n")
                        //<< -( wrap-char                                        ";\n")
-                       << -("text-transform: "                 << qstring    << ";\n")
+                       << -("text-transform: "                 << string     << ";\n")
                        << -("text-line-spacing: "              << uint_      << ";\n")
                        << -("text-character-spacing: "         << uint_      << ";\n")
                        << -("text-label-position-tolerance: "  << uint_      << ";\n")

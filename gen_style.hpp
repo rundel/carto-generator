@@ -4,10 +4,6 @@ namespace cssgen {
 typedef std::map<std::string,mapnik::rules > style_map;
 typedef std::pair<std::string,mapnik::rules > style_pair;
 
-
-
-
-
 int find_zoom(double denom, bool max) 
 {
     const int max_zoom = 22;
@@ -121,9 +117,6 @@ struct style_css_gen : karma::grammar< Iter, style_map() > {
         using karma::double_;
         using karma::bool_;
         
-        symbolizer = poly_sym | line_sym | text_sym;
-        
-        
         rule  =    -("." << string << " ")
                 << -("[" << string << "] ")
                 << -(string << " ")
@@ -143,17 +136,12 @@ struct style_css_gen : karma::grammar< Iter, style_map() > {
     }
 
     quoted_string< Iter > qstring;
-    line_sym_gen< Iter > line_sym;
-    poly_sym_gen< Iter > poly_sym;
-    text_sym_gen< Iter > text_sym;
-    
+    symbolizer_gen< Iter > symbolizer;
 
     karma::rule< Iter, style_map() >  styles;
     karma::rule< Iter, style_pair() > style;
     karma::rule< Iter, mapnik::rules() > rules;
     karma::rule< Iter, mapnik::rule() > rule;
-    karma::rule< Iter, mapnik::symbolizer() > symbolizer;
-    
 };
 
 }

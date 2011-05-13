@@ -13,10 +13,7 @@
 #include <mapnik/expression_string.hpp>
 
 #include "gen_utility.hpp"
-
-#include "gen_line_sym.hpp"
-#include "gen_polygon_sym.hpp"
-#include "gen_text_sym.hpp"
+#include "gen_symbolizers.hpp"
 
 #include "gen_style.hpp"
 
