@@ -155,10 +155,10 @@ namespace cssgen {
             using karma::uint_;
             using karma::string;
             
-            text_sym =    -("text-name: "                      << qstring    << ";\n")
+            text_sym =     ("text-name: "                      << qstring    << ";\n")
                        << -("text-face-name: "                 << qstring    << ";\n")
                        << -("text-face-name: @"                << string     << ";\n")
-                       <<  ("text-size: "                      << uint_      << ";\n")
+                       << -("text-size: "                      << uint_      << ";\n")
                        << -("text-ratio: "                     << uint_      << ";\n")
                        << -("text-wrap-width: "                << uint_      << ";\n")
                        << -("text-spacing: "                   << double_    << ";\n")                // FIXME - double check
@@ -166,7 +166,7 @@ namespace cssgen {
                        << -("text-line-spacing: "              << uint_      << ";\n")
                        << -("text-label-position-tolerance: "  << uint_      << ";\n")
                        << -("text-max-char-angle-delta: "      << double_    << ";\n")
-                       <<  ("text-fill: "                      << color      << ";\n")
+                       << -("text-fill: "                      << color      << ";\n")
                        << -("text-halo-fill: "                 << color      << ";\n")
                        << -("text-halo-radius: "               << double_    << ";\n")
                        << -("text-dx: "                        << double_    << ";\n")
