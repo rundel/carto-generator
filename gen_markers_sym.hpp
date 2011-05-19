@@ -15,11 +15,11 @@ BOOST_FUSION_ADAPT_ADT(
     // marker-line-color, marker-line-width, marker-line-opacity
     (mapnik::stroke const&, mapnik::stroke const&, obj.get_stroke(), /**/)
     // marker-placement
-//    (boost::optional<std::string>,
-//     boost::optional<std::string>,
-//     cssgen::make_opt<std::string>( obj.get_marker_placement().as_string(),
-//                                    mapnik::markers_symbolizer().get_marker_placement().as_string()),
-//     /**/)
+    (boost::optional<std::string>,
+     boost::optional<std::string>,
+     cssgen::make_opt<std::string>( obj.get_marker_placement().as_string(),
+                                    mapnik::markers_symbolizer().get_marker_placement().as_string()),
+     /**/)
      // marker-type
     (boost::optional<std::string>,
      boost::optional<std::string>,
@@ -96,7 +96,7 @@ namespace cssgen {
             markers_sym =    -("marker-file: "          << qstring << ";\n")
                           << -("marker-opacity: "       << float_  << ";\n")
                           <<  (stroke)
-                          //<< -("marker-placement: "     << string  << ";\n")
+                          << -("marker-placement: "     << string  << ";\n")
                           << -("marker-type: "          << string  << ";\n")
                           << -("marker-width: "         << double_ << ";\n")
                           << -("marker-height: "        << double_ << ";\n")
