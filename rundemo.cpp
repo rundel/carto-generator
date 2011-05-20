@@ -1,23 +1,18 @@
-#define FUSION_MAX_VECTOR_SIZE 25
-
-#include <mapnik/map.hpp>
 #include <mapnik/datasource_cache.hpp>
 #include <mapnik/font_engine_freetype.hpp>
-#include <mapnik/agg_renderer.hpp>
-#include <mapnik/filter_factory.hpp>
-#include <mapnik/image_util.hpp>
+//#include <mapnik/agg_renderer.hpp>
+//#include <mapnik/filter_factory.hpp>
+//#include <mapnik/image_util.hpp>
 #include <mapnik/config_error.hpp>
 
-#include <mapnik/color_factory.hpp>
-#include <mapnik/css_color_grammar.hpp>
 
 #include <mapnik/save_map.hpp>
 #include <mapnik/load_map.hpp>
 
 #include <iostream>
 
-#include "generators.hpp"
-
+//#include "generators.hpp"
+#include "gen_map.hpp"
 
 std::string prettify(std::string in, std::string indent = "    ") {
     
@@ -67,8 +62,6 @@ int main ( int argc , char** argv) {
     
     using namespace mapnik;
     try {
-        
-        
         
         std::cout << " running demo ... \n";
         

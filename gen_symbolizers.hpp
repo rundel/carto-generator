@@ -1,5 +1,11 @@
-#include "gen_stroke.hpp"
+#ifndef GEN_SYMBOLIZERS_HPP
+#define GEN_SYMBOLIZERS_HPP
 
+#include <boost/spirit/include/karma.hpp>
+
+#include <mapnik/rule.hpp>
+
+#include "gen_stroke.hpp"
 #include "gen_building_sym.hpp"
 #include "gen_line_sym.hpp"
 #include "gen_line_pattern_sym.hpp"
@@ -17,13 +23,8 @@ namespace karma = boost::spirit::karma;
 
 template <typename Iter>
 struct symbolizer_gen : karma::grammar< Iter, mapnik::symbolizer() > {
-    symbolizer_gen() : symbolizer_gen::base_type(symbolizer) {
-            
-        symbolizer =   building_sym | line_sym | line_patter_sym | markers_sym
-                     | point_sym | polygon_sym | polygon_pattern_sym
-                     | raster_sym | shield_sym | text_sym;
-                             
-    }
+    symbolizer_gen();
+    
     building_sym_gen<Iter>          building_sym;
     line_sym_gen<Iter>              line_sym;
     line_pattern_sym_gen<Iter>      line_patter_sym;
@@ -40,3 +41,5 @@ struct symbolizer_gen : karma::grammar< Iter, mapnik::symbolizer() > {
 };
 
 }
+
+#endif

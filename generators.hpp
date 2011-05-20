@@ -12,6 +12,8 @@
 
 #include <mapnik/expression_string.hpp>
 
+#include "make_opt_funcs.hpp"
+
 #include "gen_utility.hpp"
 #include "gen_symbolizers.hpp"
 

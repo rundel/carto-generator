@@ -1,4 +1,19 @@
+#ifndef GEN_LAYER_HPP
+#define GEN_LAYER_HPP
+
+
+#include <boost/optional.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/fusion/include/adapt_struct.hpp>
+#include <boost/fusion/include/adapt_struct_named.hpp>
+#include <boost/spirit/include/karma.hpp>
+
+#include <mapnik/layer.hpp>
+
+#include "make_opt_funcs.hpp"
+#include "gen_utility.hpp"
+#include "gen_style.hpp"
+#include "gen_parameter.hpp"
 
 namespace cssgen {
 
@@ -80,14 +95,13 @@ BOOST_FUSION_ADAPT_STRUCT_NAMED_NS(
     (boost::optional<bool>, queryable_)
     (boost::optional<bool>, clear_label_cache_)
     //(boost::optional<bool>, cache_features_)
-    //(std::vector<std::string>, style_names_)
     (mapnik::parameters, datasource_params_)
 );
 
 BOOST_FUSION_ADAPT_STRUCT_NAMED_NS(
     cssgen::layer_data const, 
     (cssgen),
-    layer_style,
+    layer_mss,
     (std::string, id_)
     (cssgen::style_map, styles_)
 );
@@ -97,55 +111,24 @@ namespace cssgen {
 
     namespace karma = boost::spirit::karma;
     
-    using karma::double_;
-    using karma::bool_;
-    using karma::string;
-    using karma::omit;
-    using karma::lit;
-
     template <typename Iter>
     struct layer_mml_gen : karma::grammar< Iter, layer_mml() > {
-        layer_mml_gen() : layer_mml_gen::base_type(layer) {
-
-            //styles = "Styles: " << qstring % ",\n" << "\n";
-            layer =     ("\"id\": " << qstring << "," << "\n")
-                    <<  ("\"name\": " << qstring << "," << "\n")
-                    <<  ("\"srs\": " << qstring << "," << "\n")
-                    << -("\"title\": " << qstring << "," << "\n")
-                    << -("\"abstract\": " << qstring << "," << "\n")
-                    << -("\"minZoom\": " << double_ << "," << "\n") 
-                    << -("\"maxZoom\": " << double_ << "," << "\n") 
-                    << -("\"active\": " << bool_ << "," << "\n") 
-                    << -("\"queryable\": " << bool_ << "," << "\n")
-                    << -("\"clear-label-cache\": " << bool_ << "," << "\n") 
-                    //<< -("\"cache_features\": " << bool_ << "\n")
-                    //<< omit[styles]
-                    <<  ( "\"datasources\": {\n" 
-                          << datasource << "\n"
-                    <<  ("}\n") );
-        }
+        layer_mml_gen();
     
         quoted_string< Iter > qstring;
-        
-        parameter_css_gen< Iter > datasource;
-        //karma::rule< Iter, std::vector<std::string>() > styles;
+        parameter_gen< Iter > datasource;
         karma::rule< Iter, layer_mml() > layer;
     };
 
 
     template <typename Iter>
-    struct layer_mss_gen : karma::grammar< Iter, layer_style() > {
-        layer_mss_gen() : layer_mss_gen::base_type(layer) {
-
-            
-            layer =    ("#" << string << " {\n")
-                    << styles << "\n"
-                    << ("}\n");
-        }
+    struct layer_mss_gen : karma::grammar< Iter, layer_mss() > {
+        layer_mss_gen();
         
         quoted_string< Iter > qstring;
-        
-        style_css_gen< Iter> styles;
-        karma::rule< Iter, layer_style() > layer;
+        style_gen< Iter> styles;
+        karma::rule< Iter, layer_mss() > layer;
     };
 }
+
+#endif

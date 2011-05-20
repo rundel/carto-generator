@@ -1,3 +1,17 @@
+#ifndef GEN_LINE_SYM_HPP
+#define GEN_LINE_SYM_HPP
+
+#include <boost/fusion/include/adapt_adt.hpp>
+#include <boost/spirit/include/karma.hpp>
+#include <boost/spirit/include/support_adapt_adt_attributes.hpp>
+
+#include <mapnik/line_symbolizer.hpp>
+
+
+#include "make_opt_funcs.hpp"
+#include "gen_utility.hpp"
+#include "gen_stroke.hpp"
+#include "gen_dash_pair.hpp"
 
 BOOST_FUSION_ADAPT_ADT(
     mapnik::line_symbolizer,
@@ -10,23 +24,7 @@ namespace cssgen {
     
     template <typename Iter>
     struct line_sym_gen : karma::grammar< Iter, mapnik::line_symbolizer() > {
-        line_sym_gen() : line_sym_gen::base_type(line_sym) {
-            
-            using karma::double_;
-            using karma::string;
-            
-            stroke =    -("line-color: "     << color   << ";\n")
-                     <<  ("line-width: "     << double_ << ";\n")
-                     << -("line-opacity: "   << double_ << ";\n")
-                     << -("line-join: "      << string  << ";\n")
-                     << -("line-cap: "       << string  << ";\n")
-                     << -("line-gamma: "     << double_ << ";\n")
-                     << -("line-dasharray: " << dashpair % ", " << ";\n");
-            
-            dashpair = double_ << ", " << double_;
-            
-            line_sym = stroke;
-        }
+        line_sym_gen();
         
         color_rgb< Iter > color;
         
@@ -38,3 +36,5 @@ namespace cssgen {
 
     };
 }
+
+#endif

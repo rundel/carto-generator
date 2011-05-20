@@ -1,6 +1,13 @@
+#ifndef GEN_POINT_SYM_HPP
+#define GEN_POINT_SYM_HPP
 
+#include <boost/fusion/include/adapt_adt.hpp>
+#include <boost/spirit/include/karma.hpp>
+#include <boost/spirit/include/support_adapt_adt_attributes.hpp>
 
+#include <mapnik/point_symbolizer.hpp>
 
+#include "make_opt_funcs.hpp"
 
 BOOST_FUSION_ADAPT_ADT(
     mapnik::point_symbolizer,
@@ -58,7 +65,4 @@ namespace cssgen {
     };
 }
 
-
-
-
-
+#endif

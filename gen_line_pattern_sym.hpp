@@ -1,3 +1,14 @@
+#ifndef GEN_LINE_PATTERN_SYM_HPP
+#define GEN_LINE_PATTERN_SYM_HPP
+
+#include <boost/fusion/include/adapt_adt.hpp>
+#include <boost/spirit/include/karma.hpp>
+#include <boost/spirit/include/support_adapt_adt_attributes.hpp>
+
+#include <mapnik/line_pattern_symbolizer.hpp>
+
+#include "make_opt_funcs.hpp"
+#include "gen_utility.hpp"
 
 BOOST_FUSION_ADAPT_ADT(
     mapnik::line_pattern_symbolizer,
@@ -14,14 +25,11 @@ namespace cssgen {
     
     template <typename Iter>
     struct line_pattern_sym_gen : karma::grammar< Iter, mapnik::line_pattern_symbolizer() > {
-        line_pattern_sym_gen() : line_pattern_sym_gen::base_type(line_pattern_sym) {
-        
-            line_pattern_sym = -("line-pattern-file: "      << qstring   << ";\n");
-            
-        }
+        line_pattern_sym_gen();
         
         quoted_string< Iter > qstring;
         karma::rule< Iter, mapnik::line_pattern_symbolizer() > line_pattern_sym;
     };
 }
 
+#endif

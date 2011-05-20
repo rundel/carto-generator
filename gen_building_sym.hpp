@@ -1,3 +1,17 @@
+#ifndef GEN_BUILDING_SYM_HPP
+#define GEN_BUILDING_SYM_HPP
+
+#include <boost/optional.hpp>
+#include <boost/fusion/include/adapt_adt.hpp>
+#include <boost/spirit/include/karma.hpp>
+#include <boost/spirit/include/support_adapt_adt_attributes.hpp>
+
+#include <mapnik/color.hpp>
+#include <mapnik/polygon_symbolizer.hpp>
+
+#include "make_opt_funcs.hpp"
+#include "gen_utility.hpp"
+
 
 BOOST_FUSION_ADAPT_ADT(
     mapnik::building_symbolizer,
@@ -20,19 +34,15 @@ BOOST_FUSION_ADAPT_ADT(
 namespace cssgen {
 
     namespace karma = boost::spirit::karma;
-    
+
     template <typename Iter>
     struct building_sym_gen : karma::grammar< Iter, mapnik::building_symbolizer() > {
-        building_sym_gen() : building_sym_gen::base_type(building_sym) {
-        
-            using karma::double_;
-        
-            building_sym =     ("building-fill: "         << color   << ";\n")
-                           << -("building-fill-opacity: " << double_ << ";\n")
-                           << -("building-height: "       << double_ << ";\n");
-        }
-        
+        building_sym_gen();
+    
         color_rgb< Iter > color;
         karma::rule< Iter, mapnik::building_symbolizer() > building_sym;
     };
+
 }
+
+#endif

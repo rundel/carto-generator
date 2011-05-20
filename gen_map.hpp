@@ -1,3 +1,16 @@
+#ifndef GEN_MAP_HPP
+#define GEN_MAP_HPP
+
+#include <boost/optional.hpp>
+#include <boost/fusion/include/adapt_struct.hpp>
+#include <boost/spirit/include/karma.hpp>
+
+#include <mapnik/map.hpp>
+
+#include "gen_utility.hpp"
+#include "gen_font_set.hpp"
+#include "gen_layer.hpp"
+
 
 namespace cssgen {
 
@@ -11,10 +24,6 @@ struct map_data {
 
         boost::optional<font_set_map> fontsets_;
         
-        //styles_(rhs.styles_),
-        //metawriters_(rhs.metawriters_),
-        //parameters extra_attr_;
-
         map_data() {}
         
         map_data(const mapnik::Map& rhs) {
@@ -66,64 +75,30 @@ namespace cssgen {
     
     namespace karma = boost::spirit::karma;
     
-    using karma::lit;
-    using karma::omit;
-    using karma::int_;
-    using karma::attr_cast;
-    
     template <typename Iter>
     struct mml_gen : karma::grammar< Iter, map_data() > {
-        mml_gen() : mml_gen::base_type(mml) {
-            
-            mml =    omit[-font_sets]
-                  << "{\n"
-                  << "\"srs\": " << qstring << ",\n"
-                  << omit[qstring]
-                  << omit[bg_rgb]
-                  << omit[-int_]
-                  << "\"Stylesheet\": [\n"
-                  << "\"style.mss\"\n"
-                  << "],\n"
-                  << "\"Layer\": [\n" 
-                  << ("{\n" << layer << "}") % ",\n" << "\n"
-                  << "]\n"
-                  << "}";
-        }
+        mml_gen();
         
         quoted_string< Iter > qstring;
-        color_rgb< Iter > bg_rgb;
-        
+        color_rgb< Iter > color;
         layer_mml_gen< Iter > layer;
-        font_set_css_gen< Iter > font_sets;
-    
+        font_set_gen< Iter > font_sets;
         karma::rule< Iter, map_data() > mml;
     };   
 
 
     template <typename Iter>
     struct mss_gen : karma::grammar< Iter, map_data() > {
-        mss_gen() : mss_gen::base_type(mms) {
-            
-            mms =    -font_sets
-                  << "\n"
-                  << "Map {\n"
-                  << "srs: " << qstring << ";\n"
-                  << -("background-image: " << qstring << ";\n")
-                  << -("background-color: " << bg_rgb << ";\n")
-                  << -("buffer-size: " << int_ << ";\n")
-                  << "}\n"
-                  << "\n"
-                  << layer % "\n";
-        }
+        mss_gen();
         
         quoted_string< Iter > qstring;
-        color_rgb< Iter > bg_rgb;
-        
+        color_rgb< Iter > color;
         layer_mss_gen< Iter > layer;
-        font_set_css_gen< Iter > font_sets;
-    
+        font_set_gen< Iter > font_sets;
         karma::rule< Iter, map_data() > mms;
         
     };
 
 }
+
+#endif

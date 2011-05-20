@@ -1,3 +1,15 @@
+#ifndef GEN_SHIELD_SYM_HPP
+#define GEN_SHIELD_SYM_HPP
+
+#include <boost/fusion/include/adapt_adt.hpp>
+#include <boost/spirit/include/karma.hpp>
+#include <boost/spirit/include/support_adapt_adt_attributes.hpp>
+
+#include <mapnik/shield_symbolizer.hpp>
+#include <mapnik/expression_string.hpp>
+
+#include "make_opt_funcs.hpp"
+
 namespace cssgen {
 
 static const mapnik::shield_symbolizer sh_dfl(mapnik::expression_ptr(), 
@@ -127,18 +139,4 @@ namespace cssgen {
     };
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#endif

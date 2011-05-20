@@ -1,3 +1,15 @@
+#ifndef GEN_FONT_SET_HPP
+#define GEN_FONT_SET_HPP
+
+#include <boost/fusion/include/adapt_adt.hpp>
+#include <boost/fusion/include/adapt_struct.hpp> 
+
+#include <boost/spirit/include/karma.hpp>
+#include <boost/spirit/include/support_adapt_adt_attributes.hpp>
+
+#include <mapnik/font_set.hpp>
+
+#include "gen_utility.hpp"
 
 namespace cssgen {
 
@@ -25,13 +37,8 @@ namespace cssgen {
     using karma::omit;
 
     template <typename Iter>
-    struct font_set_css_gen : karma::grammar< Iter, font_set_map() > {
-        font_set_css_gen() : font_set_css_gen::base_type(fs_map) {
-            
-            fs = omit[string] << qstring % ", " << ";";
-            fs_pair = "@" << string << ": " << fs;
-            fs_map  = fs_pair % "\n" << "\n";
-        }
+    struct font_set_gen : karma::grammar< Iter, font_set_map() > {
+        font_set_gen();
 
         quoted_string< Iter > qstring;
         
@@ -40,3 +47,5 @@ namespace cssgen {
         karma::rule< Iter, mapnik::font_set() > fs;
     };
 }
+
+#endif

@@ -1,3 +1,14 @@
+#ifndef GEN_POLYGON_PATTERN_SYM_HPP
+#define GEN_POLYGON_PATTERN_SYM_HPP
+
+#include <boost/fusion/include/adapt_adt.hpp>
+#include <boost/spirit/include/karma.hpp>
+#include <boost/spirit/include/support_adapt_adt_attributes.hpp>
+
+#include <mapnik/polygon_pattern_symbolizer.hpp>
+
+#include "make_opt_funcs.hpp"
+
 namespace cssgen {
 
 static const mapnik::polygon_pattern_symbolizer pp_dfl(mapnik::parse_path(""));
@@ -37,3 +48,5 @@ namespace cssgen {
         karma::rule< Iter, mapnik::polygon_pattern_symbolizer() > polygon_pattern_sym;
     };
 }
+
+#endif

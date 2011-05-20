@@ -1,3 +1,17 @@
+#ifndef GEN_TEXT_SYM_HPP
+#define GEN_TEXT_SYM_HPP
+
+#include <boost/fusion/include/adapt_adt.hpp>
+#include <boost/spirit/include/karma.hpp>
+#include <boost/spirit/include/support_adapt_adt_attributes.hpp>
+
+#include <mapnik/text_symbolizer.hpp>
+#include <mapnik/expression_string.hpp>
+
+
+#include "make_opt_funcs.hpp"
+#include "gen_utility.hpp"
+
 namespace cssgen {
 
 static const mapnik::text_symbolizer ts_dfl(mapnik::expression_ptr(), "<no default>", 0, mapnik::color(0,0,0) );
@@ -148,42 +162,12 @@ namespace cssgen {
     
     template <typename Iter>
     struct text_sym_gen : karma::grammar< Iter, mapnik::text_symbolizer() > {
-        text_sym_gen() : text_sym_gen::base_type(text_sym) {
-            
-            using karma::double_;
-            using karma::bool_;
-            using karma::uint_;
-            using karma::string;
-            
-            text_sym =     ("text-name: "                      << qstring    << ";\n")
-                       << -("text-face-name: "                 << qstring    << ";\n")
-                       << -("text-face-name: @"                << string     << ";\n")
-                       << -("text-size: "                      << uint_      << ";\n")
-                       << -("text-ratio: "                     << uint_      << ";\n")
-                       << -("text-wrap-width: "                << uint_      << ";\n")
-                       << -("text-spacing: "                   << double_    << ";\n")                // FIXME - double check
-                       << -("text-character-spacing: "         << uint_      << ";\n")
-                       << -("text-line-spacing: "              << uint_      << ";\n")
-                       << -("text-label-position-tolerance: "  << uint_      << ";\n")
-                       << -("text-max-char-angle-delta: "      << double_    << ";\n")
-                       << -("text-fill: "                      << color      << ";\n")
-                       << -("text-halo-fill: "                 << color      << ";\n")
-                       << -("text-halo-radius: "               << double_    << ";\n")
-                       << -("text-dx: "                        << double_    << ";\n")
-                       << -("text-dy: "                        << double_    << ";\n")
-                       << -("text-vertical-alignment: "        << string     << ";\n")
-                       << -("text-avoid-edges: "               << bool_      << ";\n")
-                       << -("text-min-distance: "              << double_    << ";\n")
-                       << -("text-min-padding: "               << double_    << ";\n")
-                       << -("text-allow-overlap: "             << bool_      << ";\n")
-                       << -("text-placement: "                 << string     << ";\n")
-                       << -("text-transform: "                 << string     << ";\n");
-        }
+        text_sym_gen();
         
         quoted_string< Iter > qstring;
         color_rgb< Iter > color;
-        
         karma::rule< Iter, mapnik::text_symbolizer() > text_sym;
-    
     };
 }
+
+#endif

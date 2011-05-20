@@ -11,17 +11,21 @@ CXXFLAGS = $(DEFINES) $(INCLUDE) -Wall
 #LIBS =  -L/usr/local/lib -L/usr/lib $(LIBDIR) -lboost_thread-mt -lboost_regex-mt -licuuc
 LIBS =  -L/usr/local/lib -L/usr/lib -lmapnik2 -lboost_thread-mt -lboost_regex-mt -licuuc
 
-OBJ = rundemo.o
+
+SRC = $(wildcard *.cpp)
+#gen_building_sym.cpp gen_font_set.cpp rundemo.cpp
+
+OBJ = $(SRC:.cpp=.o)
 
 BIN = rundemo
 
-all : $(BIN)
+all : $(SRC) $(BIN)
 
 $(BIN) : $(OBJ)
-	$(CXX) -o $@ $(OBJ) $(LIBS) 
+	$(CXX) $(OBJ) $(LIBS) -o $@  
 
-.c.o :
-	$(CXX) -c $(CXXFLAGS) $<
+.cpp.o :
+	$(CXX) -c $(CXXFLAGS) $< -o $@
 
 .PHONY : clean
 

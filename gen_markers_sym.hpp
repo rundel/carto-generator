@@ -1,3 +1,13 @@
+#ifndef GEN_MARKERS_HPP
+#define GEN_MARKERS_HPP
+
+#include <boost/fusion/include/adapt_adt.hpp>
+#include <boost/spirit/include/karma.hpp>
+#include <boost/spirit/include/support_adapt_adt_attributes.hpp>
+
+#include <mapnik/markers_symbolizer.hpp>
+
+#include "make_opt_funcs.hpp"
 
 BOOST_FUSION_ADAPT_ADT(
     mapnik::markers_symbolizer,
@@ -120,5 +130,4 @@ namespace cssgen {
     };
 }
 
-
-
+#endif

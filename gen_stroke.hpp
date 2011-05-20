@@ -1,8 +1,12 @@
-namespace cssgen {
+#ifndef GEN_STROKE_HPP
+#define GEN_STROKE_HPP
 
-typedef std::pair<double,double> dash_pair;
+#include <boost/fusion/include/adapt_adt.hpp>
 
-}
+#include <mapnik/stroke.hpp>
+
+#include "make_opt_funcs.hpp"
+#include "gen_dash_pair.hpp"
 
 BOOST_FUSION_ADAPT_ADT(
     mapnik::stroke,
@@ -45,8 +49,5 @@ BOOST_FUSION_ADAPT_ADT(
      /**/)
 );
 
-BOOST_FUSION_ADAPT_STRUCT(
-    cssgen::dash_pair,
-    (double, first)
-    (double, second)
-);
+
+#endif
