@@ -1,7 +1,7 @@
 #CXX = g++
 CXX = clang++
 
-INCLUDE = `pkg-config --cflags mapnik2 freetype2`
+INCLUDE = -I./include `pkg-config --cflags mapnik2 freetype2`
 
 DEFINES = -DHAVE_JPEG -DBOOST_REGEX_HAS_ICU -DDARWIN -DBOOST_SPIRIT_THREADSAFE -DMAPNIK_THREADSAFE -DNDEBUG
 
