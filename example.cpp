@@ -93,9 +93,6 @@ int main ( int argc , char** argv) {
         //          << "Have a look!\n";
         
         
-        cssgen::map_data md(m);
-        
-        
         typedef std::back_insert_iterator<std::string> iter;
         
         std::string mml;
@@ -106,7 +103,7 @@ int main ( int argc , char** argv) {
         std::cout << "-------------------------\n";
         std::cout << "mml:\n\n";
         
-        bool r = boost::spirit::karma::generate(sink, g_mml, md);
+        bool r = boost::spirit::karma::generate(sink, g_mml, cssgen::map_data(m));
         if (r)
             std::cout << prettify(mml) << "\n";
         else

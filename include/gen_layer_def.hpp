@@ -19,7 +19,7 @@ layer_mml_gen<Iter>::layer_mml_gen() : layer_mml_gen::base_type(layer) {
             << -("\"queryable\": " << bool_ << "," << "\n")
             << -("\"clear-label-cache\": " << bool_ << "," << "\n") 
             //<< -("\"cache_features\": " << bool_ << "\n")
-            <<  ("\"datasources\": {\n" 
+            <<  ("\"Datasource\": {\n" 
                   << datasource << "\n"
             <<  "}\n" );
 }

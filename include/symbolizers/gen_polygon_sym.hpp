@@ -37,9 +37,9 @@ namespace cssgen {
         
             using karma::double_;
         
-            polygon_sym =     ("polygon-fill: "      << color   << ";\n")
-                       << -("polygon-gamma: "     << double_ << ";\n")
-                       << -("polygon-opacity: "   << double_ << ";\n");
+            polygon_sym =   ("polygon-fill: "      << color   << ";\n")
+                        << -("polygon-gamma: "     << double_ << ";\n")
+                        << -("polygon-opacity: "   << double_ << ";\n");
         }
         
         color_rgb< Iter > color;
