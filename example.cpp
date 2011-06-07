@@ -99,11 +99,12 @@ int main ( int argc , char** argv) {
         iter sink(mml);
         cssgen::mml_gen< iter > g_mml;
         
+        cssgen::map_data md(m);
         
         std::cout << "-------------------------\n";
         std::cout << "mml:\n\n";
         
-        bool r = boost::spirit::karma::generate(sink, g_mml, cssgen::map_data(m));
+        bool r = boost::spirit::karma::generate(sink, g_mml, md);
         if (r)
             std::cout << prettify(mml) << "\n";
         else
