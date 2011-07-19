@@ -3,7 +3,7 @@ std::string prettify(std::string in, std::string indent = "    ") {
     std::string out;
     out.reserve(in.size());
     
-    char cur, prev = '';
+    char cur, prev = ' ';
     bool in_quote = false;
     int depth = 0;
     
