@@ -49,21 +49,20 @@ std::string prettify(std::string in, std::string indent = "    ") {
 
 
 int main ( int argc , char** argv) {    
-    std::string mapnik_dir, xml_file;
     
-    
-    xml_file = (argc > 1) ? std::string(argv[1]) : "map.xml";
-    mapnik_dir = (argc == 3) ? std::string(argv[2]) : "/usr/local/lib/mapnik2/"; 
+    std::string mapnik_dir = MAPNIKDIR;
+    mapnik_dir += "/lib/mapnik2/";
+    std::string xml_file = (argc == 2) ? std::string(argv[1]) : "map.xml";
     
     using namespace mapnik;
     try {
         
         std::cout << " running demo ... \n";
-        
+        std::cout << " mapnik directory: " << mapnik_dir << "\n";
         std::cout << " looking for 'shape.input' plugin in... " << mapnik_dir << "input/" << "\n";
-        datasource_cache::instance()->register_datasources(mapnik_dir + "input/"); 
+        datasource_cache::instance()->register_datasources(mapnik_dir + "/lib/mapnik2/input/"); 
         
-        std::cout << " looking for DejaVuSans font in... " << mapnik_dir << "fonts/DejaVuSans.ttf" << "\n";
+        std::cout << " looking for DejaVuSans font in... " << mapnik_dir << "fonts/" << "\n";
         freetype_engine::register_font(mapnik_dir + "fonts/DejaVuSans.ttf");        
         freetype_engine::register_font(mapnik_dir + "fonts/DejaVuSans-Book.ttf");
         freetype_engine::register_font(mapnik_dir + "fonts/DejaVuSans-Bold.ttf");
