@@ -36,13 +36,13 @@ BOOST_FUSION_ADAPT_ADT(
      cssgen::make_opt<std::string>(obj.get_name(),mapnik::rule().get_name()), /**/)
     // filter
     (boost::optional<std::string>, boost::optional<std::string>, \
-     cssgen::make_opt<std::string>(mapnik::to_expression_string(*obj.get_filter(), true),
-                                   mapnik::to_expression_string(*mapnik::rule().get_filter(), true) ),/**/)
+     cssgen::make_opt<std::string>(mapnik::to_expression_string(*obj.get_filter()),
+                                   mapnik::to_expression_string(*mapnik::rule().get_filter()) ), /**/)
     // zoom levels
-    (boost::optional<std::string>, boost::optional<std::string>, cssgen::conv_zoom( \
+    (boost::optional<std::string>, boost::optional<std::string>, \
+     cssgen::conv_zoom(
         cssgen::make_opt<double>(obj.get_min_scale(),mapnik::rule().get_min_scale()),
-        cssgen::make_opt<double>(obj.get_max_scale(),mapnik::rule().get_max_scale()) )
-     , /**/)
+        cssgen::make_opt<double>(obj.get_max_scale(),mapnik::rule().get_max_scale())), /**/)
     //// min scale
     //(boost::optional<double>, boost::optional<double>, \
     // cssgen::make_opt<double>(obj.get_min_scale(),mapnik::rule().get_min_scale()) , /**/)    
@@ -54,7 +54,7 @@ BOOST_FUSION_ADAPT_ADT(
      cssgen::make_opt<std::string>(obj.get_title(),mapnik::rule().get_title()), /**/)
     // abstract
     (boost::optional<std::string>, boost::optional<std::string>, \
-     cssgen::make_opt<std::string>(obj.get_abstract(),mapnik::rule().get_abstract()) , /**/)
+     cssgen::make_opt<std::string>(obj.get_abstract(),mapnik::rule().get_abstract()), /**/)
     //(bool,   bool,   obj.has_else_filter(), /**/)
     // symbolizers
     (mapnik::rule::symbolizers const&, mapnik::rule::symbolizers const&,  obj.get_symbolizers(), /**/)
