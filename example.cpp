@@ -13,47 +13,24 @@
 
 int main ( int argc , char** argv) {    
     
-    std::string mapnik_dir = MAPNIKDIR;
-    mapnik_dir += "/lib/mapnik2/";
+    std::string mapnik_input_dir = MAPNIKDIR;
+    std::string mapnik_font_dir = mapnik_input_dir + "/../fonts/";
+    
+    //mapnik_dir += "/lib/mapnik2/";
     std::string xml_file = (argc == 2) ? std::string(argv[1]) : "map.xml";
     
     using namespace mapnik;
     try {
         
         std::cout << " running demo ... \n";
-        std::cout << " mapnik directory: " << mapnik_dir << "\n";
-        std::cout << " looking for 'shape.input' plugin in... " << mapnik_dir << "input/" << "\n";
-        datasource_cache::instance()->register_datasources(mapnik_dir + "/lib/mapnik2/input/"); 
+        std::cout << " looking for 'shape.input' plugin in... " << mapnik_input_dir << "\n";
+        datasource_cache::instance()->register_datasources(mapnik_input_dir); 
         
-        std::cout << " looking for DejaVuSans font in... " << mapnik_dir << "fonts/" << "\n";
-        freetype_engine::register_font(mapnik_dir + "fonts/DejaVuSans.ttf");        
-        freetype_engine::register_font(mapnik_dir + "fonts/DejaVuSans-Book.ttf");
-        freetype_engine::register_font(mapnik_dir + "fonts/DejaVuSans-Bold.ttf");
-        freetype_engine::register_font(mapnik_dir + "fonts/DejaVuSans-Oblique.ttf");
-        freetype_engine::register_font("/Library/Fonts/Georgia.ttf");
-        freetype_engine::register_font("/Library/Fonts/Microsoft/Arial Italic.ttf");
-        
+        //std::cout << " looking for DejaVuSans font in... " << mapnik_font_dir << "\n";
+        //freetype_engine::register_fonts(mapnik_font_dir);
         
         Map m(800,600);
         load_map(m,xml_file,true);
-        //m.set_background(color_factory::from_string("black"));
-                
-        //m.zoom_to_box(box2d<double>(1405120.04127408,-247003.813399447,
-        //                             1706357.31328276,-25098.593149577));
-        //
-        //image_32 buf(m.width(),m.height());
-        //agg_renderer<image_32> ren(m,buf);
-        //ren.apply();
-        //
-        //save_to_file<image_data_32>(buf.data(),"demo.jpg","jpeg");
-        //save_to_file<image_data_32>(buf.data(),"demo.png","png");
-        //save_to_file<image_data_32>(buf.data(),"demo256.png","png256");
-        //std::cout << "Three maps have been rendered using AGG in the current directory:\n"
-        //          << "- demo.jpg\n"
-        //          << "- demo.png\n"
-        //          << "- demo256.png\n"
-        //          << "Have a look!\n";
-        
         
         typedef std::back_insert_iterator<std::string> iter;
         

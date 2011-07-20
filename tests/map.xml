@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Map srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs" background-color="rgb(255,255,255)">
+<Map srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs" background-color="rgb(255,255,255)" font-directory="fonts/">
     
     <FontSet name="book-fonts">
         <Font face-name="DejaVu Sans Book" />
@@ -78,28 +78,28 @@
     <Layer name="Provinces" srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
         <StyleName>provinces</StyleName>
         <Datasource>
-            <Parameter name="file">tests/data/boundaries</Parameter>
+            <Parameter name="file">data/boundaries</Parameter>
             <Parameter name="type">shape</Parameter>
         </Datasource>
     </Layer>
     <Layer name="Quebec Hydrography" srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
         <StyleName>drainage</StyleName>
         <Datasource>
-            <Parameter name="file">tests/data/qcdrainage</Parameter>
+            <Parameter name="file">data/qcdrainage</Parameter>
             <Parameter name="type">shape</Parameter>
         </Datasource>
     </Layer>
     <Layer name="Ontario Hydrography" srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
         <StyleName>drainage</StyleName>
         <Datasource>
-            <Parameter name="file">tests/data/ontdrainage</Parameter>
+            <Parameter name="file">data/ontdrainage</Parameter>
             <Parameter name="type">shape</Parameter>
         </Datasource>
     </Layer>
     <Layer name="Provincial borders" srs="+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs">
         <StyleName>provlines</StyleName>
         <Datasource>
-            <Parameter name="file">tests/data/boundaries_l</Parameter>
+            <Parameter name="file">data/boundaries_l</Parameter>
             <Parameter name="type">shape</Parameter>
         </Datasource>
     </Layer>
@@ -110,7 +110,7 @@
         <StyleName>highway-border</StyleName>
         <StyleName>highway-fill</StyleName>
         <Datasource>
-            <Parameter name="file">tests/data/roads</Parameter>
+            <Parameter name="file">data/roads</Parameter>
             <Parameter name="type">shape</Parameter>
         </Datasource>
     </Layer>
@@ -118,7 +118,7 @@
         <StyleName>popplaces</StyleName>
         <Datasource>
             <Parameter name="encoding">latin1</Parameter>
-            <Parameter name="file">tests/data/popplaces</Parameter>
+            <Parameter name="file">data/popplaces</Parameter>
             <Parameter name="type">shape</Parameter>
         </Datasource>
     </Layer>
