@@ -15,7 +15,7 @@ BIN = example
 all : $(SRC) $(BIN)
 
 $(BIN) : $(OBJ)
-	$(CXX) $(OBJ) $(LIBS) -o $@  
+	$(CXX) $(OBJ) $(LIBS) -lboost_program_options -o $@  
 
 .cpp.o :
 	$(CXX) -c $(CXXFLAGS) $< -o $@
