@@ -15,7 +15,7 @@
 #include "gen_map.hpp"
 
 
-int main ( int argc , char** argv) {    
+int main (int argc, char** argv) {    
     
     namespace po = boost::program_options;
     
@@ -24,23 +24,22 @@ int main ( int argc , char** argv) {
     using namespace mapnik;
     try {
 
-        std::string xml_file_name;
-        std::string mml_file_name;
-        std::string mss_file_name("style.mss");
+        std::string xml_file_name, mml_file_name, mss_file_name;
         
         po::options_description desc("xml2carto");
         desc.add_options()
             ("help,h", "produce usage message")
             ("version,V","print version string")
-            ("xml", po::value<std::string>(&xml_file_name), "input mapnik xml")   
-            ("mml",po::value<std::string>(&mml_file_name),"output carto mml")
+            ("xml", po::value<std::string>(&xml_file_name), "input mapnik xml")
+            ("mml", po::value<std::string>(&mml_file_name), "output carto mml")
+            ("mss", po::value<std::string>(&mss_file_name), "output carto mss")
             ;
         
-        std::string usage("\nusage: xml2carto map.xml map.mml");
+        std::string usage("\nusage: xml2carto map.xml map.mml [map.mss]");
         
         po::positional_options_description p;
-        p.add("xml",1);
-        p.add("mml",2);
+        p.add("xml",1).add("mml",1).add("mss",1);
+        
         po::variables_map vm;
         po::store(po::command_line_parser(argc, argv).options(desc).positional(p).run(), vm);
         po::notify(vm);
@@ -77,15 +76,37 @@ int main ( int argc , char** argv) {
         load_map(m,xml_file_name,false);
         
         typedef std::back_insert_iterator<std::string> iter;
-        
-        std::string mml;
-        iter sink(mml);
-        cssgen::mml_gen< iter > g_mml;
-        
         cssgen::map_data md(m);
-                
-        bool r = boost::spirit::karma::generate(sink, g_mml, md);
-        if (r) {
+        
+        std::string mss;
+        iter mss_sink(mss);
+        cssgen::mss_gen< iter > g_mss;
+        
+        if (!boost::spirit::karma::generate(mss_sink, g_mss, md)) 
+        {
+            std:: cout << "Generation of stylesheet failed\n";
+            return 1;
+        }
+        
+        if (vm.count("mss"))
+        {
+            std::ofstream mss_file;
+            mss_file.open(mss_file_name.c_str());
+            if (!mss_file.is_open()){
+                std::cout << "error: could not save mss to: " << mss_file_name << "\n";
+                return EXIT_FAILURE;
+            }
+            mss_file << prettify(mss);
+            mss_file.close();
+        }
+
+
+        std::string mml;
+        iter mml_sink(mml);
+        cssgen::mml_gen< iter > g_mml( (vm.count("mss")) ? mss_file_name : mss );
+        
+        if (boost::spirit::karma::generate(mml_sink, g_mml, md))
+        {
             std::ofstream mml_file;
             mml_file.open(mml_file_name.c_str());
             if (!mml_file.is_open()){
@@ -96,26 +117,9 @@ int main ( int argc , char** argv) {
             mml_file.close();
         }
         else
-            std:: cout << "mml generator failed!\n";
+            std:: cout << "Generation of " << mml_file_name << " failed!\n";
                 
-        std::string mss;
-        sink = iter(mss);
-        cssgen::mss_gen< iter > g_mss;
-        
-        r = boost::spirit::karma::generate(sink, g_mss, md);
-        
-        if (r) {
-            std::ofstream mss_file;
-            mss_file.open(mss_file_name.c_str());
-            if (!mss_file.is_open()){
-                std::cout << "error: could not save mss to: " << mss_file_name << "\n";
-                return EXIT_FAILURE;
-            }
-            mss_file << prettify(mss);
-            mss_file.close();
-        }
-        else
-            std:: cout << "mss generator failed!\n";
+
     }
     catch ( const mapnik::config_error & ex )
     {

@@ -77,7 +77,7 @@ namespace cssgen {
     
     template <typename Iter>
     struct mml_gen : karma::grammar< Iter, map_data() > {
-        mml_gen();
+        mml_gen(std::string mss);
         
         quoted_string< Iter > qstring;
         color_rgb< Iter > color;
@@ -95,7 +95,7 @@ namespace cssgen {
         color_rgb< Iter > color;
         layer_mss_gen< Iter > layer;
         font_set_gen< Iter > font_sets;
-        karma::rule< Iter, map_data() > mms;
+        karma::rule< Iter, map_data() > mss;
         
     };
 

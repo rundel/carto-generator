@@ -1,6 +1,9 @@
-std::string prettify(std::string in, std::string indent = "    ") {
+#ifndef PRETTIFY_HPP
+#define PRETTIFY_HPP
+
+std::string prettify(std::string in, std::string base_indent = "", std::string indent = "    ") {
     
-    std::string out;
+    std::string out(base_indent);
     out.reserve(in.size());
     
     char cur, prev = ' ';
@@ -12,17 +15,20 @@ std::string prettify(std::string in, std::string indent = "    ") {
         
         cur = *it;
         
-        if ((cur == '}' || cur == ']') && !in_quote)
+        if ((cur == '}' || cur == ']') )//&& !in_quote)
             depth--;
         
-        if (prev == '\n' && !in_quote) {
-            int j=depth;
-            while(j-- !=0 ) {
-                out.append(indent);
-            }
+        if (prev == '\n') {
+            //out.append(base_indent);
+            //if (!in_quote) {
+                int j=depth;
+                while (j-- != 0) {
+                    out.append(indent);
+                }
+            //}
         }
         
-        if ((cur == '{' || cur == '[') && !in_quote)
+        if ((cur == '{' || cur == '[') )//&& !in_quote)
             depth++;
         
         if (cur == '"' && prev != '\\')
@@ -35,4 +41,5 @@ std::string prettify(std::string in, std::string indent = "    ") {
     
     return out;
 }
- 
+
+#endif

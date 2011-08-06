@@ -31,7 +31,7 @@ layer_mss_gen<Iter>::layer_mss_gen() : layer_mss_gen::base_type(layer) {
     
     layer =    ("#" << string << " {\n")
             << (styles << "\n")
-            << ("}\n");
+            << ("}");
 }
 
 }
