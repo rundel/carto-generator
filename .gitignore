@@ -1,2 +1,4 @@
 *.o
 example
+.DS_Store
+/carto-tests
