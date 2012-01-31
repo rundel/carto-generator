@@ -21,59 +21,57 @@ int main (int argc, char** argv) {
     
     std::string mapnik_input_dir = MAPNIKDIR;
     
-    using namespace mapnik;
+    std::string xml_file_name, mml_file_name, mss_file_name;
+    
+    po::options_description desc("xml2carto");
+    desc.add_options()
+        ("help,h", "produce usage message")
+        ("version,V","print version string")
+        ("xml", po::value<std::string>(&xml_file_name), "input mapnik xml")
+        ("mml", po::value<std::string>(&mml_file_name), "output carto mml")
+        ("mss", po::value<std::string>(&mss_file_name), "output carto mss")
+        ;
+    
+    std::string usage("\nusage: xml2carto map.xml map.mml [map.mss]");
+    
+    po::positional_options_description p;
+    p.add("xml",1).add("mml",1).add("mss",1);
+    
+    po::variables_map vm;
+    po::store(po::command_line_parser(argc, argv).options(desc).positional(p).run(), vm);
+    po::notify(vm);
+    
+    if (vm.count("version"))
+    {
+        std::cout << "version 0.0.0" << std::endl;
+        return 1;
+    }
+
+    if (vm.count("help")) 
+    {
+        std::cout << desc << usage << std::endl;
+        return 1;
+    }
+
+    if (!vm.count("xml") || !boost::algorithm::ends_with(xml_file_name,".xml"))
+    {
+        std::cout << "Please provide an input xml\n" << std::endl;
+        std::cout << desc << usage << std::endl;
+        return 1;
+    }
+
+    if (!vm.count("mml") || !boost::algorithm::ends_with(mml_file_name,".mml"))
+    {
+        std::cout << "Please provide an output mml\n" << std::endl;
+        std::cout << desc << usage << std::endl;
+        return 1;
+    }
+        
     try {
-
-        std::string xml_file_name, mml_file_name, mss_file_name;
+        mapnik::datasource_cache::instance()->register_datasources(mapnik_input_dir); 
         
-        po::options_description desc("xml2carto");
-        desc.add_options()
-            ("help,h", "produce usage message")
-            ("version,V","print version string")
-            ("xml", po::value<std::string>(&xml_file_name), "input mapnik xml")
-            ("mml", po::value<std::string>(&mml_file_name), "output carto mml")
-            ("mss", po::value<std::string>(&mss_file_name), "output carto mss")
-            ;
-        
-        std::string usage("\nusage: xml2carto map.xml map.mml [map.mss]");
-        
-        po::positional_options_description p;
-        p.add("xml",1).add("mml",1).add("mss",1);
-        
-        po::variables_map vm;
-        po::store(po::command_line_parser(argc, argv).options(desc).positional(p).run(), vm);
-        po::notify(vm);
-        
-        if (vm.count("version"))
-        {
-            std::cout << "version 0.0.0" << std::endl;
-            return 1;
-        }
-
-        if (vm.count("help")) 
-        {
-            std::cout << desc << usage << std::endl;
-            return 1;
-        }
-
-        if (!vm.count("xml") || !boost::algorithm::ends_with(xml_file_name,".xml"))
-        {
-            std::cout << "Please provide an input xml\n" << std::endl;
-            std::cout << desc << usage << std::endl;
-            return 1;
-        }
-
-        if (!vm.count("mml") || !boost::algorithm::ends_with(mml_file_name,".mml"))
-        {
-            std::cout << "Please provide an output mml\n" << std::endl;
-            std::cout << desc << usage << std::endl;
-            return 1;
-        }
-        
-        datasource_cache::instance()->register_datasources(mapnik_input_dir); 
-        
-        Map m(256,256);
-        load_map(m,xml_file_name,false);
+        mapnik::Map m(256,256);
+        mapnik::load_map(m,xml_file_name,false);
         
         typedef std::back_insert_iterator<std::string> iter;
         cssgen::map_data md(m);
