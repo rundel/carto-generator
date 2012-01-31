@@ -1,21 +1,20 @@
 #CXX = g++
 CXX = clang++
 
-CXXFLAGS = -g -I./include $(shell mapnik-config --cflags) -DMAPNIKDIR=\"$(shell mapnik-config --input-plugins)\"
+CXXFLAGS = -I./include $(shell mapnik-config --cflags) -DMAPNIKDIR=\"$(shell mapnik-config --input-plugins)\"
 
-LIBS = $(shell mapnik-config --libs)
-
+LIBS = $(shell mapnik-config --libs --dep-libs) -lboost_program_options
 
 SRC = $(wildcard *.cpp)
 
 OBJ = $(SRC:.cpp=.o)
 
-BIN = example
+BIN = xml2carto
 
 all : $(SRC) $(BIN)
 
 $(BIN) : $(OBJ)
-	$(CXX) $(OBJ) $(LIBS) -lboost_program_options -o $@  
+	$(CXX) $(OBJ) $(LIBS) -o $@  
 
 .cpp.o :
 	$(CXX) -c $(CXXFLAGS) $< -o $@
