@@ -4,8 +4,8 @@ This is a testbed for the implementation of a native C++ generator for the carto
 
 Requirements
 ------------
-- Recent revision of Mapnik2 from SVN
-- Boost 1.4.7 beta 1 or newer
+- Recent trunk release of Mapnik
+- Boost 1.4.8 beta 1 or newer
 
 Building
 --------
