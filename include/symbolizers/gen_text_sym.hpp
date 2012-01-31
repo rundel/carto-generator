@@ -22,9 +22,9 @@ static const mapnik::text_symbolizer ts_dfl(mapnik::expression_ptr(), "<no defau
 BOOST_FUSION_ADAPT_ADT(
     mapnik::text_symbolizer,
     // text-name
-    (boost::optional<std::string>, 
-     boost::optional<std::string>,
-     cssgen::make_opt_empty<std::string>( mapnik::to_expression_string(*obj.get_name()) ),
+    (std::string, 
+     std::string,
+     "", //mapnik::to_expression_string(*obj.get_name()),
      /**/)
     // text-face-name
     (boost::optional<std::string>,
