@@ -14,8 +14,6 @@ style_gen<Iter>::style_gen() : style_gen::base_type(styles) {
             << -("[" << string << "] ")
             << -(string << " ")
             << "{\n"
-            << -("title: " << qstring << ";\n")
-            << -("abstract: " << qstring << ";\n")
             //<< -("else_filter: " << bool_ << ";\n")
             << symbolizer % ""
             

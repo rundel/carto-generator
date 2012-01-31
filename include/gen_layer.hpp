@@ -25,9 +25,6 @@ struct layer_data {
     std::vector<std::string>  style_names_;
     style_map styles_;
     
-    boost::optional<std::string> title_;
-    boost::optional<std::string> abstract_;
-        
     boost::optional<double> minZoom_;
     boost::optional<double> maxZoom_;
     boost::optional<bool> active_;
@@ -54,11 +51,6 @@ struct layer_data {
         style_names_ = rhs.styles();
         datasource_params_ = rhs.datasource()->params();
         
-        
-        if (rhs.title() != "")
-            title_ = rhs.title();
-        if (rhs.abstract() != "")
-            abstract_ = rhs.abstract();
         
         if (defaults.getMinZoom() != rhs.getMinZoom())
             minZoom_ = rhs.getMinZoom();
@@ -87,8 +79,6 @@ BOOST_FUSION_ADAPT_STRUCT_NAMED_NS(
     (std::string, id_)
     (std::string, name_)
     (std::string, srs_ )
-    (boost::optional<std::string>, title_)    
-    (boost::optional<std::string>, abstract_)
     (boost::optional<double>, minZoom_)
     (boost::optional<double>, maxZoom_)
     (boost::optional<bool>, active_)

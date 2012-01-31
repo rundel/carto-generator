@@ -43,18 +43,6 @@ BOOST_FUSION_ADAPT_ADT(
      cssgen::conv_zoom(
         cssgen::make_opt<double>(obj.get_min_scale(),mapnik::rule().get_min_scale()),
         cssgen::make_opt<double>(obj.get_max_scale(),mapnik::rule().get_max_scale())), /**/)
-    //// min scale
-    //(boost::optional<double>, boost::optional<double>, \
-    // cssgen::make_opt<double>(obj.get_min_scale(),mapnik::rule().get_min_scale()) , /**/)    
-    //// max scale
-    //(boost::optional<double>, boost::optional<double>, \
-    // cssgen::make_opt<double>(obj.get_max_scale(),mapnik::rule().get_max_scale()) , /**/)
-    // title
-    (boost::optional<std::string>, boost::optional<std::string>, \
-     cssgen::make_opt<std::string>(obj.get_title(),mapnik::rule().get_title()), /**/)
-    // abstract
-    (boost::optional<std::string>, boost::optional<std::string>, \
-     cssgen::make_opt<std::string>(obj.get_abstract(),mapnik::rule().get_abstract()), /**/)
     //(bool,   bool,   obj.has_else_filter(), /**/)
     // symbolizers
     (mapnik::rule::symbolizers const&, mapnik::rule::symbolizers const&,  obj.get_symbolizers(), /**/)

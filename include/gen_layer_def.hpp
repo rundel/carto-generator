@@ -11,8 +11,6 @@ layer_mml_gen<Iter>::layer_mml_gen() : layer_mml_gen::base_type(layer) {
     layer =     ("\"id\": " << qstring << "," << "\n")
             <<  ("\"name\": " << qstring << "," << "\n")
             <<  ("\"srs\": " << qstring << "," << "\n")
-            << -("\"title\": " << qstring << "," << "\n")
-            << -("\"abstract\": " << qstring << "," << "\n")
             << -("\"minZoom\": " << double_ << "," << "\n") 
             << -("\"maxZoom\": " << double_ << "," << "\n") 
             << -("\"active\": " << bool_ << "," << "\n") 
