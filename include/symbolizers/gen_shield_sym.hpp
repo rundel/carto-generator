@@ -79,26 +79,26 @@ BOOST_FUSION_ADAPT_ADT(
     // shield-text-dx
     (boost::optional<double>,
      boost::optional<double>,
-     cssgen::make_opt<double>(obj.get_displacement().get<0>(),
-                              cssgen::sh_dfl.get_displacement().get<0>()),
+     cssgen::make_opt<double>(obj.get_displacement().first,
+                              cssgen::sh_dfl.get_displacement().first),
      /**/)
     // shield-text-dy
     (boost::optional<double>,
      boost::optional<double>,
-     cssgen::make_opt<double>(obj.get_displacement().get<1>(),
-                              cssgen::sh_dfl.get_displacement().get<1>()),
+     cssgen::make_opt<double>(obj.get_displacement().second,
+                              cssgen::sh_dfl.get_displacement().second),
      /**/)
     // shield-dx
     (boost::optional<double>,
      boost::optional<double>,
-     cssgen::make_opt<double>(obj.get_shield_displacement().get<0>(),
-                              cssgen::sh_dfl.get_shield_displacement().get<0>()),
+     cssgen::make_opt<double>(obj.get_shield_displacement().first,
+                              cssgen::sh_dfl.get_shield_displacement().second),
      /**/)
     // shield-dy
     (boost::optional<double>,
      boost::optional<double>,
-     cssgen::make_opt<double>(obj.get_shield_displacement().get<1>(),
-                              cssgen::sh_dfl.get_shield_displacement().get<1>()),
+     cssgen::make_opt<double>(obj.get_shield_displacement().first,
+                              cssgen::sh_dfl.get_shield_displacement().second),
      /**/)
 );
 

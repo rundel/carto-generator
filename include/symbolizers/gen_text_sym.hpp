@@ -101,14 +101,14 @@ BOOST_FUSION_ADAPT_ADT(
     // text-dx
     (boost::optional<double>,
      boost::optional<double>,
-     cssgen::make_opt<double>(obj.get_displacement().get<0>(),
-                             cssgen::ts_dfl.get_displacement().get<0>()),
+     cssgen::make_opt<double>(obj.get_displacement().first,
+                             cssgen::ts_dfl.get_displacement().first),
      /**/)
     // text-dy
     (boost::optional<double>,
      boost::optional<double>,
-     cssgen::make_opt<double>(obj.get_displacement().get<1>(),
-                             cssgen::ts_dfl.get_displacement().get<1>()),
+     cssgen::make_opt<double>(obj.get_displacement().second,
+                             cssgen::ts_dfl.get_displacement().second),
      /**/)
     // text-vertical-alignment
     (boost::optional<std::string>,
