@@ -1,4 +1,3 @@
 *.o
-example
 .DS_Store
-/carto-tests
+xml2carto
