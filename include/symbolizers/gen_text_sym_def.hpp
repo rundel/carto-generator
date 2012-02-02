@@ -16,7 +16,7 @@ text_sym_gen<Iter>::text_sym_gen() : text_sym_gen::base_type(text_sym) {
                    << -("text-size: "                      << uint_      << ";\n")
                    << -("text-ratio: "                     << uint_      << ";\n")
                    << -("text-wrap-width: "                << uint_      << ";\n")
-                   << -("text-spacing: "                   << double_    << ";\n")                // FIXME - double check
+                   << -("text-spacing: "                   << uint_      << ";\n")
                    << -("text-character-spacing: "         << uint_      << ";\n")
                    << -("text-line-spacing: "              << uint_      << ";\n")
                    << -("text-label-position-tolerance: "  << uint_      << ";\n")
@@ -34,5 +34,4 @@ text_sym_gen<Iter>::text_sym_gen() : text_sym_gen::base_type(text_sym) {
                    << -("text-placement: "                 << string     << ";\n")
                    << -("text-transform: "                 << string     << ";\n");
     }
-    
 }
