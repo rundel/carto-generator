@@ -25,9 +25,9 @@ static const mapnik::shield_symbolizer sh_dfl(mapnik::expression_ptr(),
 BOOST_FUSION_ADAPT_ADT(
     mapnik::shield_symbolizer,
     // shield-name
-    (boost::optional<std::string>, 
-     boost::optional<std::string>,
-     cssgen::make_opt_empty<std::string>( mapnik::to_expression_string(*obj.get_name()) ),
+    (std::string, 
+     std::string,
+     "", //mapnik::to_expression_string(*obj.get_name()),
      /**/)
     // shield-face-name
     (boost::optional<std::string>,
