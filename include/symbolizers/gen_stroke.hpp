@@ -17,7 +17,10 @@ BOOST_FUSION_ADAPT_ADT(
                                      mapnik::stroke().get_color()), 
      /**/)
     // width
-    (double, double, obj.get_width(), /**/)
+    (double,
+     double, 
+     obj.get_width(),
+     /**/)
     // opacity
     (boost::optional<double>,
      boost::optional<double>,
