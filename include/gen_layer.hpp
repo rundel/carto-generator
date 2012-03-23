@@ -52,15 +52,15 @@ struct layer_data {
         datasource_params_ = rhs.datasource()->params();
         
         
-        if (defaults.getMinZoom() != rhs.getMinZoom())
-            minZoom_ = rhs.getMinZoom();
-        if (defaults.getMaxZoom() != rhs.getMaxZoom())
-            maxZoom_ = rhs.getMaxZoom();
+        if (defaults.min_zoom() != rhs.min_zoom())
+            minZoom_ = rhs.min_zoom();
+        if (defaults.max_zoom() != rhs.max_zoom())
+            maxZoom_ = rhs.max_zoom();
         
-        if (defaults.isActive() != rhs.isActive())
-            active_ = rhs.isActive();
-        if (defaults.isQueryable() != rhs.isQueryable())
-            queryable_ = rhs.isQueryable();
+        if (defaults.active() != rhs.active())
+            active_ = rhs.active();
+        if (defaults.queryable() != rhs.queryable())
+            queryable_ = rhs.queryable();
         if (defaults.clear_label_cache() != rhs.clear_label_cache())
             clear_label_cache_ = rhs.clear_label_cache();
         if (defaults.cache_features() != rhs.cache_features())
