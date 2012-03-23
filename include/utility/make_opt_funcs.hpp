@@ -14,14 +14,14 @@ namespace cssgen {
         return boost::optional<T>(val);
     }
     
-    template <class T> 
+    /*template <class T> 
     inline boost::optional<T> make_opt_has(T val, bool has)
     {
         if (!has)
             return boost::optional<T>();
 
         return boost::optional<T>(val);
-    }
+    }*/
     
     template <class T> 
     inline boost::optional<T> make_opt_empty(T val)

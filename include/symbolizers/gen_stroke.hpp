@@ -47,8 +47,7 @@ BOOST_FUSION_ADAPT_ADT(
      /**/)
     // dasharray
     (boost::optional<mapnik::dash_array>, boost::optional<mapnik::dash_array>,
-     cssgen::make_opt_has<mapnik::dash_array>(obj.get_dash_array(),
-                                              obj.has_dash()),
+     cssgen::make_opt_empty<mapnik::dash_array>(obj.get_dash_array()),
      /**/)
 );
 
