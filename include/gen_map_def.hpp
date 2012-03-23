@@ -12,7 +12,7 @@ mml_gen<Iter>::mml_gen(std::string mss) : mml_gen::base_type(mml) {
     mml =  omit[-font_sets]
         << "{\n"
         << "\"srs\": " << qstring << ",\n"
-        << omit[qstring]
+        << omit[-qstring]
         << omit[color]
         << omit[-int_]
         << "\"Stylesheet\": [\n"
