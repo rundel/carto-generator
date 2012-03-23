@@ -58,7 +58,9 @@ mapnik_ldflags = _mapnik_config('--libs', '--ldflags', '--dep-libs')
 
 # hacky fix for boost library suffixes
 boost_libs = [x for x in _mapnik_config('--dep-libs') if x.find("-lboost_") != -1 ]
-boost_suff = "-"+[x.split("-")[-1] for x in boost_libs][0]
+boost_suff = ""
+if boost_libs[0].rfind("-") > 0:
+	boost_suff = "-"+boost_libs[0].split("-")[-1]
 
 env.Append(CPPPATH=[ 'include', 'agg/include' ])
 env.Append(CXXFLAGS=mapnik_cflags + [ '-DMAPNIKDIR="\\"{0}\\""'.format(pipes.quote(plugin_path)) ])# + [ '-Wall', '-pedantic', '-Wfatal-errors', '-Werror', '-Wno-unused-but-set-variable', '-Wno-format' ])
