@@ -68,7 +68,7 @@ int main (int argc, char** argv) {
     }
         
     try {
-        mapnik::datasource_cache::instance()->register_datasources(mapnik_input_dir); 
+        mapnik::datasource_cache::instance().register_datasources(mapnik_input_dir); 
         
         mapnik::Map m(256,256);
         mapnik::load_map(m,xml_file_name,false);

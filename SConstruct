@@ -24,20 +24,21 @@ if not sys.stdout.isatty():
 # construct environment
 env = Environment(
   #CXXCOMSTR='%scxx: $SOURCE -> $TARGET%s' % (colors['green'], colors['end']),
-  #CCCOMSTR='%scc: $SOURCE -> $TARGET%s' % (colors['green'], colors['end']),
+  CCCOMSTR='%scc: $SOURCE -> $TARGET%s' % (colors['green'], colors['end']),
   #SHCXXCOMSTR='%scxx: $SOURCE -> $TARGET%s' % (colors['green'], colors['end']),
-  #SHCCCOMSTR='%scc: $SOURCE -> $TARGET%s' % (colors['green'], colors['end']),
-  #LINKCOMSTR='%sld: $TARGET%s' % (colors['yellow'], colors['end']),
-  #SHLINKCOMSTR='%sld: $TARGET%s' % (colors['yellow'], colors['end']),
+  SHCCCOMSTR='%scc: $SOURCE -> $TARGET%s' % (colors['green'], colors['end']),
+  LINKCOMSTR='%sld: $TARGET%s' % (colors['yellow'], colors['end']),
+  SHLINKCOMSTR='%sld: $TARGET%s' % (colors['yellow'], colors['end']),
 
   #tools=["default"],
-  ENV = {'PATH' : os.environ['PATH']}
+  ENV = {'PATH' : os.environ['PATH'],
+         'TERM' : os.environ['TERM']}
 )
 
 # check environ
-if 'CXX' in os.environ:
-    env.Replace(CXX=os.environ['CXX'])
-    print("%sconfigure: using CXX: %s%s" % (colors['blue'], os.environ['CXX'], colors['end']))
+#if 'CXX' in os.environ:
+env['CXX'] = 'clang++'
+#print("%sconfigure: using CXX: %s%s" % (colors['blue'], os.environ['CXX'], colors['end']))
 
 if 'CXXFLAGS' in os.environ:
     env.Append(CXXFLAGS=os.environ['CXXFLAGS'])
@@ -63,7 +64,7 @@ if boost_libs[0].rfind("-") > 0:
 	boost_suff = "-"+boost_libs[0].split("-")[-1]
 
 env.Append(CPPPATH=[ 'include', 'agg/include' ])
-env.Append(CXXFLAGS=mapnik_cflags + [ '-DMAPNIKDIR="\\"{0}\\""'.format(pipes.quote(plugin_path)) ])# + [ '-Wall', '-pedantic', '-Wfatal-errors', '-Werror', '-Wno-unused-but-set-variable', '-Wno-format' ])
+env.Append(CXXFLAGS=mapnik_cflags + [ '-Wno-deprecated-declarations', '-DMAPNIKDIR="\\"{0}\\""'.format(pipes.quote(plugin_path)) ])# + [ '-Wall', '-pedantic', '-Wfatal-errors', '-Werror', '-Wno-unused-but-set-variable', '-Wno-format' ])
 env.Append(LINKFLAGS=mapnik_ldflags + [ '-lboost_program_options'+boost_suff ])
 
 objects = env.Object(source=[ fn for fn in glob.glob('src/*.cpp') + glob.glob('src/**/*.cpp') if fn != 'src/xml2carto.cpp' ])

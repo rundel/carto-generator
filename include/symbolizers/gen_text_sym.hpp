@@ -32,10 +32,10 @@ BOOST_FUSION_ADAPT_ADT(
      cssgen::make_opt_empty<std::string>( obj.get_face_name() ), 
      /**/)
     // text-face-name
-    (boost::optional<std::string>,
-     boost::optional<std::string>,
-     cssgen::make_opt_empty<std::string>( obj.get_fontset().get_name() ),
-     /**/)
+    //(boost::optional<std::string>,
+    // boost::optional<std::string>,
+    // cssgen::make_opt_empty<std::string>( obj.get_fontset().get_name() ),
+    //)
     // text-size
     (unsigned, unsigned, obj.get_text_size(), /**/ )
     // text-ratio
