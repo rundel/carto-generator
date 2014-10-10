@@ -6,6 +6,8 @@
 #include <boost/spirit/include/support_adapt_adt_attributes.hpp>
 
 #include <mapnik/line_pattern_symbolizer.hpp>
+#include <mapnik/parse_path.hpp>
+#include <mapnik/attribute.hpp>
 
 #include "utility/make_opt_funcs.hpp"
 #include "gen_utility.hpp"

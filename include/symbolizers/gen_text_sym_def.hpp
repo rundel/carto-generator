@@ -12,7 +12,7 @@ text_sym_gen<Iter>::text_sym_gen() : text_sym_gen::base_type(text_sym) {
         
         text_sym =     ("text-name: "                      << qstring    << ";\n")
                    << -("text-face-name: "                 << qstring    << ";\n")
-                   << -("text-face-name: @"                << string     << ";\n")
+                   //<< -("text-face-name: @"                << string     << ";\n")
                    << -("text-size: "                      << uint_      << ";\n")
                    << -("text-ratio: "                     << uint_      << ";\n")
                    << -("text-wrap-width: "                << uint_      << ";\n")

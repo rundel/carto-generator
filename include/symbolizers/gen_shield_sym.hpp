@@ -35,10 +35,10 @@ BOOST_FUSION_ADAPT_ADT(
      cssgen::make_opt_empty<std::string>( obj.get_face_name() ), 
      /**/)
     // shield-face-name
-    (boost::optional<std::string>,
-     boost::optional<std::string>,
-     cssgen::make_opt_empty<std::string>( obj.get_fontset().get_name() ),
-     /**/)
+    //(boost::optional<std::string>,
+    // boost::optional<std::string>,
+    // cssgen::make_opt_empty<std::string>( obj.get_fontset().get_name() ),
+    //)
     // shield-size
     (unsigned, unsigned, obj.get_text_size(), /**/ )
     // shield-fill
@@ -118,7 +118,7 @@ namespace cssgen {
         
             shield_sym =     ("shield-name: "                << qstring << ";\n")
                          << -("shield-face-name: "           << qstring << ";\n")
-                         << -("shield-face-name: @"          << string  << ";\n")
+                         //<< -("shield-face-name: @"          << string  << ";\n")
                          << -("shield-size: "                << uint_   << ";\n")
                          << -("shield-fill: "                << color   << ";\n")
                          << -("shield-min-distance: "        << double_ << ";\n")

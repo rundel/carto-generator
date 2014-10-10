@@ -23,7 +23,8 @@ BOOST_FUSION_ADAPT_ADT(
                               mapnik::markers_symbolizer().get_opacity()),
      /**/)
     // marker-line-color, marker-line-width, marker-line-opacity
-    (mapnik::stroke const&, mapnik::stroke const&, obj.get_stroke(), /**/)
+    // TODO
+    //(mapnik::stroke const&, mapnik::stroke const&, obj.get_stroke(), /**/)
     // marker-placement
     (boost::optional<std::string>,
      boost::optional<std::string>,
@@ -31,29 +32,31 @@ BOOST_FUSION_ADAPT_ADT(
                                     mapnik::markers_symbolizer().get_marker_placement().as_string()),
      /**/)
      // marker-type
-    (boost::optional<std::string>,
-     boost::optional<std::string>,
-     cssgen::make_opt<std::string>( obj.get_marker_type().as_string(),
-                                    mapnik::markers_symbolizer().get_marker_type().as_string()),
-     /**/)
+    //(boost::optional<std::string>,
+    // boost::optional<std::string>,
+    // cssgen::make_opt<std::string>( obj.get_marker_type().as_string(),
+    //                                mapnik::markers_symbolizer().get_marker_type().as_string()),
+    //)
+    /*
     // marker-width
     (boost::optional<double>,
      boost::optional<double>,
      cssgen::make_opt<double>( obj.get_width(),
                                mapnik::markers_symbolizer().get_width()),
-     /**/)
+     )
     // marker-height
     (boost::optional<double>,
      boost::optional<double>,
      cssgen::make_opt<double>( obj.get_height(),
                                mapnik::markers_symbolizer().get_height()),
-     /**/)
+    )
+    */
     // marker-fill
-    (boost::optional<mapnik::color>,
-     boost::optional<mapnik::color>,
-     cssgen::make_opt<mapnik::color>( obj.get_fill(),
-                                      mapnik::markers_symbolizer().get_fill()),
-     /**/)
+    //(boost::optional<mapnik::color>,
+    // boost::optional<mapnik::color>,
+    // cssgen::make_opt<mapnik::color>( obj.get_fill(),
+    //                                  mapnik::markers_symbolizer().get_fill()),
+    //)
     // marker-allow-overlap
     (boost::optional<bool>,
      boost::optional<bool>,
@@ -93,6 +96,7 @@ namespace cssgen {
             using karma::bool_;
             using karma::string;
 
+            /*
             stroke =    -("marker-line-color: "     << color   << ";\n")
                      << -("marker-line-width: "     << double_ << ";\n")
                      << -("marker-line-opacity: "   << double_ << ";\n");
@@ -100,17 +104,18 @@ namespace cssgen {
                      //<< -("line-cap: "       << string  << ";\n")
                      //<< -("line-gamma: "     << double_ << ";\n")
                      //<< -("line-dasharray: " << dashpair % ", " << ";\n");
+            */
 
             //dashpair = double_ << ", " << double_;
 
             markers_sym =    -("marker-file: "          << qstring << ";\n")
                           << -("marker-opacity: "       << float_  << ";\n")
-                          <<  (stroke)
+                          //<<  (stroke)
                           << -("marker-placement: "     << string  << ";\n")
-                          << -("marker-type: "          << string  << ";\n")
-                          << -("marker-width: "         << double_ << ";\n")
-                          << -("marker-height: "        << double_ << ";\n")
-                          << -("marker-fill: "          << color   << ";\n")
+                         // << -("marker-type: "          << string  << ";\n")
+                         // << -("marker-width: "         << double_ << ";\n")
+                         // << -("marker-height: "        << double_ << ";\n")
+                          //<< -("marker-fill: "          << color   << ";\n")
                           << -("marker-allow-overlap: " << bool_   << ";\n")
                           << -("marker-spacing: "       << double_ << ";\n")
                           << -("marker-max-error: "     << double_ << ";\n")
@@ -123,7 +128,7 @@ namespace cssgen {
 
         //karma::rule< Iter, dash_pair() > dashpair;
 
-        karma::rule< Iter, mapnik::stroke() > stroke;
+        //karma::rule< Iter, mapnik::stroke() > stroke;
         karma::rule< Iter, mapnik::markers_symbolizer() > markers_sym;
 
 

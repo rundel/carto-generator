@@ -24,10 +24,10 @@ BOOST_FUSION_ADAPT_ADT(
                                    mapnik::raster_symbolizer().get_mode()),
      /**/)
     // raster-scaling
-    (boost::optional<std::string>,
-     boost::optional<std::string>,
-     cssgen::make_opt<std::string>(obj.get_scaling(),
-                                   mapnik::raster_symbolizer().get_scaling()),
+    (boost::optional<mapnik::scaling_method_e>,
+     boost::optional<mapnik::scaling_method_e>,
+     cssgen::make_opt<mapnik::scaling_method_e>(obj.get_scaling_method(),
+                                   mapnik::raster_symbolizer().get_scaling_method()),
      /**/)
 );
 
@@ -44,7 +44,8 @@ namespace cssgen {
         
             raster_sym =    -("raster-opacity: " << float_ << ";\n")
                          << -("raster-mode: "    << string << ";\n")
-                         << -("raster-scaling: " << string << ";\n");
+                         //<< -("raster-scaling: " << string << ";\n")
+                         ;
         }
         
         color_rgb< Iter > color;
